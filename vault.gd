@@ -20,6 +20,8 @@ var new_entry_tween: Tween
 
 
 func _ready() -> void:
+	get_window().content_scale_factor = DisplayServer.screen_get_scale()
+	
 	if FileAccess.file_exists("user://metadata.json"):
 		var str_metadata: String = FileAccess.open("user://metadata.json", FileAccess.READ).get_as_text()
 		var metadata: Dictionary = JSON.parse_string(str_metadata)
