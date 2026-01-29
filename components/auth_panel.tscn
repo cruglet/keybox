@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cg82ihc40n24h"]
 
 [ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_b6q76"]
-[ext_resource type="Script" uid="uid://behtri2ppejjw" path="res://auth_panel.gd" id="1_uc8rb"]
+[ext_resource type="Script" uid="uid://behtri2ppejjw" path="res://components/auth_panel.gd" id="1_uc8rb"]
 
 [node name="AuthPanel" type="PanelContainer" unique_id=2056608960 node_paths=PackedStringArray("error_label", "access_button", "primary_key_input", "verify_key_input", "main_label", "sub_label")]
 custom_minimum_size = Vector2(392, 420)

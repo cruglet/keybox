@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlvpgaeknnn70"]
 
 [ext_resource type="Texture2D" uid="uid://d1adbegl8lnef" path="res://icons/copy.svg" id="1_c1iwc"]
-[ext_resource type="Script" uid="uid://cj55sm11nhp0o" path="res://vault_entry.gd" id="1_ecyqt"]
+[ext_resource type="Script" uid="uid://cj55sm11nhp0o" path="res://components/vault_entry.gd" id="1_ecyqt"]
 [ext_resource type="Texture2D" uid="uid://bh3u1pivn2wse" path="res://icons/delete.svg" id="2_cgemw"]
 
 [node name="VaultEntry" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_label", "username_label", "actual_container", "obfuscated_container", "filler_1", "filler_2", "glow", "bg_glow", "copy_button", "delete_button")]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dnmf8fdoa0ssm"]
 
-[ext_resource type="Script" uid="uid://dtvs66jgyy1sy" path="res://new_entry_panel.gd" id="1_do0mm"]
+[ext_resource type="Script" uid="uid://dtvs66jgyy1sy" path="res://components/new_entry_panel.gd" id="1_do0mm"]
 [ext_resource type="Texture2D" uid="uid://dl6wl5c0wedvk" path="res://icons/refresh.svg" id="2_hlg13"]
 
 [node name="NewEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "error_label")]

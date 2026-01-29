@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_lqr8i"]
 [ext_resource type="Shader" uid="uid://c116cf6fjsftq" path="res://shaders/blur.gdshader" id="2_cmbqh"]
 [ext_resource type="Texture2D" uid="uid://dt4ubeg3ikmfd" path="res://icons/settings.svg" id="3_0ennw"]
-[ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://auth_panel.tscn" id="3_cmbqh"]
-[ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://new_entry_panel.tscn" id="5_0obug"]
+[ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://components/auth_panel.tscn" id="3_cmbqh"]
+[ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="5_0obug"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vp1ho"]
 shader = ExtResource("2_cmbqh")
