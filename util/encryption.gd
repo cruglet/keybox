@@ -1,7 +1,6 @@
 class_name Encryption
 extends RefCounted
 
-
 const SALT_SIZE: int = 16
 const KEY_SIZE: int = 32
 const ITERATIONS: int = 10_000
@@ -26,7 +25,6 @@ static func derive_key(master_key: String, salt: PackedByteArray) -> PackedByteA
 		ITERATIONS,
 		KEY_SIZE
 	)
-
 
 
 static func hash_key(derived_key: PackedByteArray) -> PackedByteArray:
@@ -73,7 +71,6 @@ static func decrypt_data(encrypted_data: PackedByteArray, derived_key: PackedByt
 	aes.finish()
 	
 	return _pkcs7_unpad(decrypted)
-
 
 
 static func _pbkdf2_hmac_sha256(
