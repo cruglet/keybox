@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://dlvpgaeknnn70"]
+
+[ext_resource type="Texture2D" uid="uid://d1adbegl8lnef" path="res://icons/copy.svg" id="1_c1iwc"]
+[ext_resource type="Script" uid="uid://cj55sm11nhp0o" path="res://vault_entry.gd" id="1_ecyqt"]
+[ext_resource type="Texture2D" uid="uid://bh3u1pivn2wse" path="res://icons/delete.svg" id="2_cgemw"]
+
+[node name="VaultEntry" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_label", "username_label", "actual_container", "obfuscated_container", "filler_1", "filler_2", "glow", "bg_glow", "copy_button", "delete_button")]
+offset_right = 2.0
+offset_bottom = 2.0
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_ecyqt")
+name_label = NodePath("MarginContainer/ActualContainer/NameLabel")
+username_label = NodePath("MarginContainer/ActualContainer/UsernameLabel")
+actual_container = NodePath("MarginContainer/ActualContainer")
+obfuscated_container = NodePath("MarginContainer/ObfuscatedContainer")
+filler_1 = NodePath("MarginContainer/ObfuscatedContainer/Filler1")
+filler_2 = NodePath("MarginContainer/ObfuscatedContainer/Filler2")
+glow = NodePath("MarginContainer/ActualContainer/CopyButton/Glow")
+bg_glow = NodePath("BGGlow")
+copy_button = NodePath("MarginContainer/ActualContainer/CopyButton")
+delete_button = NodePath("MarginContainer/ActualContainer/NameLabel/DeleteButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1290299892]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 32
+
+[node name="ActualContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1526872253]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/ActualContainer" unique_id=316777932]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Title"
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/ActualContainer/NameLabel" unique_id=1538248981]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -18.5
+offset_right = -3.0
+offset_bottom = 19.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_type_variation = &"DangerIconButton"
+theme_override_constants/icon_max_width = 16
+icon = ExtResource("2_cgemw")
+
+[node name="UsernameLabel" type="Label" parent="MarginContainer/ActualContainer" unique_id=473123609]
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 12
+text = "user@email.com"
+
+[node name="Control" type="Control" parent="MarginContainer/ActualContainer" unique_id=1806592441]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/ActualContainer" unique_id=1459665638]
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 10
+text = "PASSWORD"
+
+[node name="Control2" type="Control" parent="MarginContainer/ActualContainer" unique_id=1066862528]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CopyButton" type="Button" parent="MarginContainer/ActualContainer" unique_id=617493655]
+custom_minimum_size = Vector2(356, 48)
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CopyButton"
+text = "•••••••••••••••"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ActualContainer/CopyButton" unique_id=758793243]
+modulate = Color(0.5803922, 0.6392157, 0.72156864, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -9.0
+offset_right = -12.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_c1iwc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Glow" type="Panel" parent="MarginContainer/ActualContainer/CopyButton" unique_id=2107205743]
+visible = false
+show_behind_parent = true
+custom_minimum_size = Vector2(354, 46)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme_type_variation = &"CopyButtonGlow"
+
+[node name="ObfuscatedContainer" type="VBoxContainer" parent="MarginContainer" unique_id=567679734]
+visible = false
+modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 2
+
+[node name="Filler1" type="Panel" parent="MarginContainer/ObfuscatedContainer" unique_id=1642088708]
+custom_minimum_size = Vector2(170, 18)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"FillerPanel1"
+
+[node name="Control3" type="Control" parent="MarginContainer/ObfuscatedContainer" unique_id=934111476]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="Filler2" type="Panel" parent="MarginContainer/ObfuscatedContainer" unique_id=522897894]
+custom_minimum_size = Vector2(100, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"FillerPanel2"
+
+[node name="Control" type="Control" parent="MarginContainer/ObfuscatedContainer" unique_id=1932407513]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="MarginContainer/ObfuscatedContainer" unique_id=2120909713]
+custom_minimum_size = Vector2(60, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"FillerPanel2"
+
+[node name="Label3" type="Label" parent="MarginContainer/ObfuscatedContainer" unique_id=1499623593]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 10
+text = "PASSWORD"
+
+[node name="Control2" type="Control" parent="MarginContainer/ObfuscatedContainer" unique_id=1337951355]
+layout_mode = 2
+
+[node name="CopyButton" type="Button" parent="MarginContainer/ObfuscatedContainer" unique_id=1071929988]
+custom_minimum_size = Vector2(356, 48)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CopyButton"
+text = "•••••••••••••••"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ObfuscatedContainer/CopyButton" unique_id=568906276]
+modulate = Color(0.5803922, 0.6392157, 0.72156864, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -9.0
+offset_right = -12.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_c1iwc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BGGlow" type="Panel" parent="." unique_id=908515573]
+self_modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"EntryGlow"
+metadata/_edit_lock_ = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/ActualContainer/NameLabel/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ActualContainer/CopyButton" to="." method="_on_copy_button_pressed"]

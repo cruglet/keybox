@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://cg82ihc40n24h"]
+
+[ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_b6q76"]
+[ext_resource type="Script" uid="uid://behtri2ppejjw" path="res://auth_panel.gd" id="1_uc8rb"]
+
+[node name="AuthPanel" type="PanelContainer" unique_id=2056608960 node_paths=PackedStringArray("error_label", "access_button", "primary_key_input", "verify_key_input", "main_label", "sub_label")]
+custom_minimum_size = Vector2(392, 420)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_uc8rb")
+error_label = NodePath("MarginContainer/VBoxContainer/ErrorLabel")
+access_button = NodePath("MarginContainer/VBoxContainer/AccessButton")
+primary_key_input = NodePath("MarginContainer/VBoxContainer/PrimaryKeyInput")
+verify_key_input = NodePath("MarginContainer/VBoxContainer/VerifyKeyInput")
+main_label = NodePath("MarginContainer/VBoxContainer/MainLabel")
+sub_label = NodePath("MarginContainer/VBoxContainer/SubLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=882886751]
+layout_mode = 2
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 65
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=315546220]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=700015918]
+custom_minimum_size = Vector2(0, 83)
+layout_mode = 2
+texture = ExtResource("1_b6q76")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1578540235]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="MainLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1973990320]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Setup Keybox"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer" unique_id=265187621]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="SubLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=619236774]
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 14
+text = "Set a master key to start securing your data."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1827659758]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="PrimaryKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=193846164]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_type_variation = &"LineEditMono"
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Create Master Key"
+alignment = 1
+secret = true
+
+[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer" unique_id=17340789]
+layout_mode = 2
+
+[node name="VerifyKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=871989945]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_type_variation = &"LineEditMono"
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Verify Master Key"
+alignment = 1
+secret = true
+
+[node name="Control6" type="Control" parent="MarginContainer/VBoxContainer" unique_id=872621399]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=549532561]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelError"
+theme_override_font_sizes/font_size = 12
+text = "Keys do not match. Please try again."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer" unique_id=925347865]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="AccessButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=272293677]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 15
+text = "Access Vault"
+
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/PrimaryKeyInput" to="." method="_on_primary_key_input_text_submitted"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/VerifyKeyInput" to="." method="_on_verify_key_input_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/VerifyKeyInput" to="." method="_on_verify_key_input_text_submitted"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AccessButton" to="." method="_on_access_button_pressed"]
