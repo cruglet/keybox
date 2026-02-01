@@ -1,5 +1,5 @@
 class_name AuthPanel
-extends PanelContainer
+extends AnimatedPanel
 
 @warning_ignore("unused_signal")
 signal access_granted(key: String)
@@ -10,8 +10,16 @@ signal access_granted(key: String)
 @export var verify_key_input: LineEdit
 @export var main_label: Label
 @export var sub_label: Label
+@export var lock_bg: TextureRect
 
 var create_mode: bool = false
+
+
+func _ready() -> void:
+	Chroma.bind_color(lock_bg, "node/self_modulate", "")
+	Chroma.bind_color(access_button, "stylebox/normal", "bg_color")
+	Chroma.bind_color(access_button, "stylebox/hover", "bg_color")
+	Chroma.bind_color(access_button, "stylebox/pressed", "bg_color", 0.9)
 
 
 func show_mismatch_error() -> void:

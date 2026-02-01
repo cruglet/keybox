@@ -7,20 +7,25 @@ static var KEY: String
 static var DERIVED_KEY: PackedByteArray
 static var KEY_AMOUNT: int = 0
 
-@export var auth_panel_container: Control
+@export var blur_container: Control
 @export var auth_panel: AuthPanel
+@export var new_entry_panel: NewEntry
 @export var flow_container: FlowContainer
 @export var copied_toast: PanelContainer
-@export var new_entry_container: Control
-@export var new_entry_panel: NewEntry
+@export var profile_button: Button
+@export var add_secret_button: Button
+@export var logo_bg: TextureRect
 
-var auth_tween: Tween
+@onready var panels = [auth_panel, new_entry_panel]
+
+var panel_tween: Tween
 var toast_tweeen: Tween
 var new_entry_tween: Tween
 
 
 func _ready() -> void:
 	get_window().content_scale_factor = DisplayServer.screen_get_scale()
+	_theme_bindings()
 	
 	if FileAccess.file_exists("user://metadata.json"):
 		var str_metadata: String = FileAccess.open("user://metadata.json", FileAccess.READ).get_as_text()
@@ -43,49 +48,49 @@ func _ready() -> void:
 		auth_panel.show_create_screen()
 	
 	await get_tree().create_timer(0.1).timeout
-	show_auth_panel()
-
-
-func show_auth_panel() -> void:
-	auth_panel_container.modulate = Color.TRANSPARENT
-	auth_panel.scale = Vector2(0.8, 0.8)
-	auth_panel_container.show()
+	show_panel(auth_panel)
 	
-	auth_tween = create_tween()
-	auth_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	auth_tween.tween_property(auth_panel_container, "modulate", Color.WHITE, 0.3)
-	auth_tween.tween_property(auth_panel, "scale", Vector2(1.0, 1.0), 0.3)
+
+func _theme_bindings() -> void:
+	Chroma.bind_color(profile_button, "color/icon_normal_color", "", 1.0, 1.0)
+	Chroma.bind_color(profile_button, "color/icon_hover_color", "", 1.0, 1.0)
+	Chroma.bind_color(profile_button, "color/icon_pressed_color", "", 1.0, 1.0)
+	Chroma.bind_color(add_secret_button, "stylebox/normal", "bg_color", 1.0, 1.0)
+	Chroma.bind_color(add_secret_button, "stylebox/pressed", "bg_color", 0.9, 1.0)
+	Chroma.bind_color(add_secret_button, "stylebox/hover", "bg_color", 1.0, 1.0)
+	Chroma.bind_color(profile_button, "stylebox/hover", "border_color", 1.0, 1.0)
+	Chroma.bind_color(logo_bg, "node/self_modulate", "", 1.0, 1.0)
 
 
-func hide_auth_panel() -> void:
-	auth_tween = create_tween()
-	auth_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	auth_tween.tween_property(auth_panel_container, "modulate", Color.TRANSPARENT, 0.3)
-	auth_tween.tween_property(auth_panel, "scale", Vector2(0.8, 0.8), 0.3)
-	auth_tween.finished.connect(func() -> void:
-		auth_panel_container.hide()
-	, CONNECT_ONE_SHOT)
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_L:
+			Chroma.set_accent_color(Color.INDIAN_RED)
 
 
-func show_new_entry_panel() -> void:
-	new_entry_container.modulate = Color.TRANSPARENT
-	new_entry_panel.scale = Vector2(0.8, 0.8)
-	new_entry_panel.clear_inputs()
-	new_entry_container.show()
+func show_panel(panel: Control) -> void:
+	for c: Control in panels:
+		if c: c.hide()
 	
-	new_entry_tween = create_tween()
-	new_entry_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	new_entry_tween.tween_property(new_entry_container, "modulate", Color.WHITE, 0.3)
-	new_entry_tween.tween_property(new_entry_panel, "scale", Vector2(1.0, 1.0), 0.3)
+	blur_container.modulate = Color.TRANSPARENT
+	panel.scale = Vector2(0.8, 0.8)
+	panel.show()
+	blur_container.show()
+	
+	panel_tween = create_tween()
+	panel_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	panel_tween.tween_property(blur_container, "modulate", Color.WHITE, 0.3)
+	panel_tween.tween_property(panel, "scale", Vector2(1.0, 1.0), 0.3)
 
 
-func hide_new_entry_panel() -> void:
-	new_entry_tween = create_tween()
-	new_entry_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	new_entry_tween.tween_property(new_entry_container, "modulate", Color.TRANSPARENT, 0.3)
-	new_entry_tween.tween_property(new_entry_panel, "scale", Vector2(0.8, 0.8), 0.3)
-	new_entry_tween.finished.connect(func() -> void:
-		new_entry_container.hide()
+
+func hide_panel(panel: Control) -> void:
+	panel_tween = create_tween()
+	panel_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	panel_tween.tween_property(blur_container, "modulate", Color.TRANSPARENT, 0.3)
+	panel_tween.tween_property(panel, "scale", Vector2(0.8, 0.8), 0.3)
+	panel_tween.finished.connect(func() -> void:
+		blur_container.hide()
 	, CONNECT_ONE_SHOT)
 
 
@@ -161,7 +166,7 @@ func _on_auth_panel_access_granted(key: String) -> void:
 		
 		_write_vault_file(salt, verifier, encrypted_vault)
 		_update_metadata(0)
-		hide_auth_panel()
+		hide_panel(auth_panel)
 	else:
 		_unlock_vault(key)
 
@@ -188,7 +193,7 @@ func _unlock_vault(key: String) -> void:
 	var derived_key: PackedByteArray = Encryption.derive_key(key, salt)
 	var vault_data: PackedByteArray = Encryption.decrypt_data(encrypted_vault, derived_key)
 	
-	hide_auth_panel()
+	hide_panel(auth_panel)
 	
 	var entries: Array = bytes_to_var_with_objects(vault_data)
 	var cleaned_entries: Array = []
@@ -267,15 +272,15 @@ func _on_new_entry_panel_created(name_: String, user: String, password: String) 
 	KEY_AMOUNT += 1
 	
 	write_to_vault(Vault.KEY, data)
-	hide_new_entry_panel()
+	hide_panel(new_entry_panel)
 
 
 func _on_new_entry_panel_canceled() -> void:
-	hide_new_entry_panel()
+	hide_panel(new_entry_panel)
 
 
 func _on_add_secret_button_pressed() -> void:
-	show_new_entry_panel()
+	show_panel(new_entry_panel)
 
 
 func _on_search_edit_text_changed(new_text: String) -> void:

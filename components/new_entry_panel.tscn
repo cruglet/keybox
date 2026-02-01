@@ -3,17 +3,19 @@
 [ext_resource type="Script" uid="uid://dtvs66jgyy1sy" path="res://components/new_entry_panel.gd" id="1_do0mm"]
 [ext_resource type="Texture2D" uid="uid://dl6wl5c0wedvk" path="res://icons/refresh.svg" id="2_hlg13"]
 
-[node name="NewEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "error_label")]
+[node name="NewEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "error_label", "save_button")]
 custom_minimum_size = Vector2(450, 0)
 offset_right = 513.0
 offset_bottom = 532.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PrimaryPanel"
 script = ExtResource("1_do0mm")
+escape_cancel = true
 name_edit = NodePath("MarginContainer/VBoxContainer/NameEdit")
 user_edit = NodePath("MarginContainer/VBoxContainer/UserEdit")
 password_edit = NodePath("MarginContainer/VBoxContainer/PasswordEdit")
 error_label = NodePath("MarginContainer/VBoxContainer/ErrorLabel")
+save_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=88891866]
 layout_mode = 2
@@ -138,11 +140,12 @@ theme_override_font_sizes/font_size = 16
 text = "Cancel"
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2027095631]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentButton"
 theme_override_font_sizes/font_size = 16
-text = "Save Secret"
+text = "Save"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PasswordEdit/GenerateButton" to="." method="_on_generate_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

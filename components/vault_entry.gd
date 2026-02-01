@@ -25,6 +25,10 @@ var glow_tween: Tween
 var bg_glow_tween: Tween
 
 
+func _ready() -> void:
+	Chroma.bind_color(bg_glow, "stylebox/panel", "bg_color")
+
+
 func show_obfucsated() -> void:
 	obfuscated_container.show()
 	actual_container.hide()

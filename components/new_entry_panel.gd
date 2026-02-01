@@ -1,13 +1,22 @@
 class_name NewEntry
-extends PanelContainer
+extends AnimatedPanel
 
 signal canceled
 signal created(name: String, email: String, password: String)
+
+@export var escape_cancel: bool = false
 
 @export var name_edit: LineEdit
 @export var user_edit: LineEdit
 @export var password_edit: LineEdit
 @export var error_label: Label
+@export var save_button: Button
+
+
+func _ready() -> void:
+	Chroma.bind_color(save_button, "stylebox/normal", "bg_color")
+	Chroma.bind_color(save_button, "stylebox/hover", "bg_color")
+	Chroma.bind_color(save_button, "stylebox/pressed", "bg_color")
 
 
 func clear_inputs() -> void:
@@ -19,7 +28,7 @@ func clear_inputs() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.keycode == KEY_ESCAPE:
+		if event.keycode == KEY_ESCAPE and escape_cancel and visible:
 			canceled.emit()
 
 
