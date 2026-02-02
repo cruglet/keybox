@@ -31,6 +31,7 @@ var _pending_vault_color: String = "#" + Chroma.accent_color.to_html()
 
 
 func _ready() -> void:
+	Chroma.set_accent_color(color_list_container.get_selected_color().to_html())
 	Chroma.bind_color(lock_bg, "node/self_modulate", "")
 	
 	Chroma.bind_color(access_button, "stylebox/normal", "bg_color")

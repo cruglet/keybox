@@ -9,14 +9,18 @@ signal canceled
 @export var new_vault_error_label: Label
 @export var new_vault_cancel_button: Button
 @export var new_vault_create_button: Button
+@export var colorscheme_label: Label
 
 var selected_vault_name: String = ""
 var selected_vault_color: String = "#ffffff"
 
 
 func _ready() -> void:
+	await owner.ready
+	selected_vault_color = "#" + new_vault_color_selector.get_selected_color().to_html()
 	new_vault_error_label.hide()
 	new_vault_create_button.disabled = true
+	_update_create_button_color()
 
 
 func _on_new_vault_name_edit_text_changed(new_text: String) -> void:
@@ -26,6 +30,8 @@ func _on_new_vault_name_edit_text_changed(new_text: String) -> void:
 
 func _on_new_vault_color_selector_color_changed(_color_name: String, color: Color) -> void:
 	selected_vault_color = "#" + color.to_html()
+	colorscheme_label.text = "Vault Colorscheme: %s" % new_vault_color_selector.get_selected_color_name()
+	_update_create_button_color()
 
 
 func _on_new_vault_create_button_pressed() -> void:
@@ -60,8 +66,28 @@ func _show_error(message: String) -> void:
 	new_vault_error_label.show()
 
 
+func _update_create_button_color() -> void:
+	var color: Color = Color(selected_vault_color)
+	
+	var normal_style: StyleBoxFlat = new_vault_create_button.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
+	normal_style.bg_color = color
+	new_vault_create_button.add_theme_stylebox_override("normal", normal_style)
+	
+	var hover_style: StyleBoxFlat = new_vault_create_button.get_theme_stylebox("hover").duplicate() as StyleBoxFlat
+	hover_style.bg_color = Chroma.modify_color(color, 1.1)
+	new_vault_create_button.add_theme_stylebox_override("hover", hover_style)
+	
+	var pressed_style: StyleBoxFlat = new_vault_create_button.get_theme_stylebox("pressed").duplicate() as StyleBoxFlat
+	pressed_style.bg_color = Chroma.modify_color(color, 0.9)
+	new_vault_create_button.add_theme_stylebox_override("pressed", pressed_style)
+	
+	var disabled_style: StyleBoxFlat = new_vault_create_button.get_theme_stylebox("disabled").duplicate() as StyleBoxFlat
+	disabled_style.bg_color = Chroma.modify_color(color, 0.9)
+	new_vault_create_button.add_theme_stylebox_override("disabled", disabled_style)
+
+
+
 func _reset_panel() -> void:
 	selected_vault_name = ""
-	selected_vault_color = "#ffffff"
 	new_vault_error_label.hide()
 	new_vault_create_button.disabled = true

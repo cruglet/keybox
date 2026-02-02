@@ -2,6 +2,10 @@ class_name VaultChip
 extends Button
 
 signal vault_toggled(vault_index: int)
+signal vault_edit(vault_index: int)
+signal vault_delete(vault_index: int)
+
+@export var popup_menu: PopupMenu
 
 var use_chroma: bool = false:
 	set(value):
@@ -41,6 +45,8 @@ func _ready() -> void:
 		_apply_vault_color()
 	_update_display()
 	_update_selected_state()
+	if popup_menu:
+		popup_menu.id_pressed.connect(_on_popup_id_pressed)
 
 
 func _bind_chroma() -> void:
@@ -98,3 +104,20 @@ func _update_selected_state() -> void:
 
 func _on_pressed() -> void:
 	vault_toggled.emit(vault_index)
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mb: InputEventMouseButton = event
+		if mb.button_index == MOUSE_BUTTON_RIGHT and mb.pressed and not is_selected:
+			if popup_menu:
+				popup_menu.set_position(get_global_position() + mb.position)
+				popup_menu.show()
+
+
+func _on_popup_id_pressed(id: int) -> void:
+	match id:
+		0:
+			vault_edit.emit(vault_index)
+		1:
+			vault_delete.emit(vault_index)

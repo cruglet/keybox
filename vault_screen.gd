@@ -263,7 +263,10 @@ func _on_create_vault_button_pressed() -> void:
 
 func _on_new_vault_panel_created(vault_name: String, vault_color: String) -> void:
 	VaultHandler.create_vault(vault_name, vault_color)
+	VaultHandler.select_vault(VaultHandler.get_vault_count() - 1)
+	_apply_selected_vault_color()
 	_populate_vault_chips()
+	_load_entries()
 	hide_panel(new_vault_panel)
 
 

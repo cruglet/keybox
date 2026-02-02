@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_b6q76"]
 [ext_resource type="Script" uid="uid://behtri2ppejjw" path="res://components/auth_panel.gd" id="1_uc8rb"]
 [ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_3fpcv"]
-[ext_resource type="Script" uid="uid://ckti4ousp1ygn" path="res://components/color_list_container.gd" id="4_kahu3"]
+[ext_resource type="PackedScene" uid="uid://bp4k28nchmsgr" path="res://components/color_list_container.tscn" id="4_kahu3"]
 
 [node name="AuthPanel" type="PanelContainer" unique_id=2056608960 node_paths=PackedStringArray("next_button", "access_button", "vault_name_input", "new_key_input", "verify_new_key_input", "auth_key_input", "new_vault_v_box", "new_key_v_box", "auth_key_v_box", "new_key_error_label", "auth_key_error_label", "main_label", "sub_label", "lock_bg", "colorscheme_label", "color_list_container")]
 custom_minimum_size = Vector2(392, 550)
@@ -104,27 +104,8 @@ theme_override_font_sizes/font_size = 14
 text = "Vault Color: Primal Blue"
 vertical_alignment = 1
 
-[node name="ColorListContainer" type="FlowContainer" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=692239637]
+[node name="ColorListContainer" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=882808407 instance=ExtResource("4_kahu3")]
 layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("4_kahu3")
-colors = Dictionary[String, Color]({
-"Amber Gold": Color(0.9607843, 0.61960787, 0.043137256, 1),
-"Amethyst Purple": Color(0.54509807, 0.36078432, 0.9647059, 1),
-"Emerald Mint": Color(0.0627451, 0.7254902, 0.5058824, 1),
-"Indigo": Color(0.3882353, 0.4, 0.94509804, 1),
-"Pink Rose": Color(0.9254902, 0.28235295, 0.6, 1),
-"Primal Blue": Color(0, 0.4627451, 1, 1),
-"Primal Red": Color(0.94509804, 0.27450982, 0.29803923, 1),
-"Sage Green": Color(0.5254902, 0.9372549, 0.6745098, 1),
-"Sky Breeze": Color(0.49019608, 0.827451, 0.9882353, 1),
-"Slate Grey": Color(0.39215687, 0.45490196, 0.54509807, 1),
-"Soft Coral": Color(0.9843137, 0.44313726, 0.52156866, 1),
-"Sunset Orange": Color(0.9764706, 0.4509804, 0.08627451, 1)
-})
-selected_color = 0
-color_order = Array[Color]([Color(0, 0.4627451, 1, 1), Color(0.94509804, 0.27450982, 0.29803923, 1), Color(0.0627451, 0.7254902, 0.5058824, 1), Color(0.9607843, 0.61960787, 0.043137256, 1), Color(0.54509807, 0.36078432, 0.9647059, 1), Color(0.3882353, 0.4, 0.94509804, 1), Color(0.9843137, 0.44313726, 0.52156866, 1), Color(0.39215687, 0.45490196, 0.54509807, 1), Color(0.49019608, 0.827451, 0.9882353, 1), Color(0.9254902, 0.28235295, 0.6, 1), Color(0.5254902, 0.9372549, 0.6745098, 1), Color(0.9764706, 0.4509804, 0.08627451, 1)])
-metadata/_custom_type_script = "uid://ckti4ousp1ygn"
 
 [node name="Control4" type="Control" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=574696272]
 custom_minimum_size = Vector2(0, 4)

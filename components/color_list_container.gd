@@ -87,6 +87,10 @@ func create_color_button(color: Color) -> Button:
 	return btn
 
 
+func get_selected_color() -> Color:
+	return color_order[selected_color]
+
+
 func get_selected_color_name() -> String:
 	var color: Color = color_order[selected_color]
 	for n: String in colors:

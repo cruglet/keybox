@@ -2,7 +2,7 @@ class_name Chroma
 extends Node
 
 
-static var accent_color: Color = Color.DODGER_BLUE
+static var accent_color: Color = Color.WHITE
 
 static var _bindings: Array[Dictionary] = []
 static var _stylebox_cache: Dictionary = {}

@@ -2,14 +2,25 @@
 
 [ext_resource type="Script" uid="uid://ckti4ousp1ygn" path="res://components/color_list_container.gd" id="1_uk30b"]
 
-[node name="ColorListContainer" type="FlowContainer" unique_id=129162090]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ColorListContainer" type="FlowContainer" unique_id=882808407]
+offset_right = 465.0
+offset_bottom = 32.0
+size_flags_horizontal = 3
 script = ExtResource("1_uk30b")
 colors = Dictionary[String, Color]({
-"Blue": Color(0, 0.4627451, 1, 1),
-"Red": Color(0.9443337, 0.2735747, 0.29763165, 1)
+"Amber Gold": Color(0.9607843, 0.61960787, 0.043137256, 1),
+"Amethyst Purple": Color(0.54509807, 0.36078432, 0.9647059, 1),
+"Emerald Mint": Color(0.18698421, 0.6503449, 0.5818599, 1),
+"Indigo": Color(0.3882353, 0.4, 0.94509804, 1),
+"Pink Rose": Color(0.9254902, 0.28235295, 0.6, 1),
+"Primal Blue": Color(0, 0.4627451, 1, 1),
+"Primal Green": Color(0.07142385, 0.6178539, 0.41995677, 1),
+"Primal Red": Color(0.94509804, 0.27450982, 0.29803923, 1),
+"Sky Breeze": Color(0.49019608, 0.827451, 0.9882353, 1),
+"Slate Grey": Color(0.39215687, 0.45490196, 0.54509807, 1),
+"Soft Coral": Color(0.9843137, 0.44313726, 0.52156866, 1),
+"Sunset Orange": Color(0.9764706, 0.4509804, 0.08627451, 1)
 })
+selected_color = 0
+color_order = Array[Color]([Color(0, 0.4627451, 1, 1), Color(0.94509804, 0.27450982, 0.29803923, 1), Color(0.07142385, 0.6178539, 0.41995677, 1), Color(0.9607843, 0.61960787, 0.043137256, 1), Color(0.54509807, 0.36078432, 0.9647059, 1), Color(0.3882353, 0.4, 0.94509804, 1), Color(0.39215687, 0.45490196, 0.54509807, 1), Color(0.9843137, 0.44313726, 0.52156866, 1), Color(0.9764706, 0.4509804, 0.08627451, 1), Color(0.9254902, 0.28235295, 0.6, 1), Color(0.49019608, 0.827451, 0.9882353, 1), Color(0.18698421, 0.6503449, 0.5818599, 1)])
+metadata/_custom_type_script = "uid://ckti4ousp1ygn"
