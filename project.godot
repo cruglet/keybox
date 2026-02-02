@@ -20,6 +20,10 @@ boot_splash/bg_color=Color(0.05882353, 0.06666667, 0.08235294, 1)
 boot_splash/show_image=false
 config/icon="uid://rwd5v8je8xad"
 
+[debug]
+
+file_logging/log_path="user://logs/keybox.log"
+
 [display]
 
 window/size/viewport_width=1920
