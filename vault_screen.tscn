@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_8yhsy"]
 [ext_resource type="Texture2D" uid="uid://d1odhvtjhqdlm" path="res://icons/plus.svg" id="4_jm6fk"]
 [ext_resource type="PackedScene" uid="uid://ohekncr6mj6b" path="res://components/vault_chip.tscn" id="5_24rf1"]
+[ext_resource type="PackedScene" uid="uid://dlvpgaeknnn70" path="res://components/vault_entry.tscn" id="6_8yhsy"]
 [ext_resource type="Shader" uid="uid://c116cf6fjsftq" path="res://shaders/blur.gdshader" id="6_l4fpi"]
 [ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://components/auth_panel.tscn" id="7_6xhj2"]
 [ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="8_xr618"]
@@ -173,6 +174,66 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 
+[node name="VaultEntry" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1796737077 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry2" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1600595704 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry3" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1475549209 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry4" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=107072321 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry5" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1593471769 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry6" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=246312931 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry7" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1044842716 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry8" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=693238952 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry9" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=747573031 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry10" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1233810615 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry11" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1516556796 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
+[node name="VaultEntry12" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=2141522083 instance=ExtResource("6_8yhsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+obfuscated = true
+
 [node name="BlurContainer" type="Control" parent="." unique_id=770378332]
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -214,7 +275,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="NewEntryPanel" parent="BlurContainer/NewEntryPanelContainer" unique_id=1796737077 instance=ExtResource("8_xr618")]
+[node name="NewEntryPanel" parent="BlurContainer/NewEntryPanelContainer" unique_id=246932546 instance=ExtResource("8_xr618")]
 visible = false
 layout_mode = 2
 

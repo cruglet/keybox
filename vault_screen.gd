@@ -24,7 +24,7 @@ var vault_chips: Array[VaultChip] = []
 
 
 func _ready() -> void:
-	get_window().content_scale_factor = DisplayServer.screen_get_scale()
+	_window_bindings()
 	_theme_bindings()
 	auth_panel.first_vault_created.connect(_on_auth_panel_first_vault_created)
 	
@@ -49,6 +49,28 @@ func _ready() -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	show_panel(auth_panel)
+
+
+func _window_bindings() -> void:
+	var window: Window = get_window()
+	if not window:
+		return
+	
+	var screen: int = window.get_current_screen()
+	var screen_scale: float = DisplayServer.screen_get_scale(screen)
+	if screen_scale <= 0.0:
+		screen_scale = 1.0
+	
+	var resolution: Vector2 = DisplayServer.screen_get_size(screen)
+	var min_size: Vector2 = Vector2(1280, 720)
+	if resolution.x >= 3840 or resolution.y >= 2160:
+		screen_scale *= 1.25
+	
+	window.content_scale_factor = screen_scale
+	
+	var width: int = max(int(resolution.x / screen_scale), int(min_size.x))
+	var height: int = max(int(resolution.y / screen_scale), int(min_size.y))
+	window.size = Vector2(width, height)
 
 
 func _theme_bindings() -> void:

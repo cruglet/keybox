@@ -8,6 +8,9 @@ var entry_name: String = ""
 var entry_username: String = ""
 var entry_password: String = ""
 
+@export var obfuscated: bool = false
+
+@export_group("Internal")
 @export var name_label: Label
 @export var username_label: Label
 
@@ -26,6 +29,10 @@ var bg_glow_tween: Tween
 
 
 func _ready() -> void:
+	if obfuscated:
+		show_obfucsated()
+	else:
+		show_normal()
 	Chroma.bind_color(bg_glow, "stylebox/panel", "bg_color")
 
 
