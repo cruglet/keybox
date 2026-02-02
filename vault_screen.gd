@@ -17,6 +17,7 @@ const VAULT_CHIP = preload("uid://ohekncr6mj6b")
 @export var new_profile_chip: VaultChip
 @export var logo_bg: TextureRect
 @export var panels: Array[Control]
+@export var bg_blur: ColorRect
 
 var panel_tween: Tween
 var toast_tween: Tween
@@ -94,16 +95,21 @@ func show_panel(panel: Control) -> void:
 	panel_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	panel_tween.tween_property(blur_container, "modulate", Color.WHITE, 0.3)
 	panel_tween.tween_property(panel, "scale", Vector2.ONE, 0.3)
+	panel_tween.tween_property(bg_blur.material, "shader_parameter/blur_amount", 2.0, 0.3)
 
 
 func hide_panel(panel: Control) -> void:
 	panel_tween = create_tween()
 	panel_tween.set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
 	panel_tween.tween_property(blur_container, "modulate", Color.TRANSPARENT, 0.3)
+	panel_tween.tween_property(bg_blur.material, "shader_parameter/blur_amount", 0.0, 0.3)
 	panel_tween.tween_property(panel, "scale", Vector2(0.8, 0.8), 0.3)
+	
 	panel_tween.finished.connect(func() -> void:
 		blur_container.hide()
 	, CONNECT_ONE_SHOT)
+
 
 
 func _on_auth_panel_access_granted(key: String) -> void:

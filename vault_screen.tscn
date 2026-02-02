@@ -11,13 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="8_xr618"]
 [ext_resource type="PackedScene" uid="uid://djac3y52eodm" path="res://components/new_vault_panel.tscn" id="9_f6coe"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vp1ho"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yhsy"]
 shader = ExtResource("6_l4fpi")
 shader_parameter/blur_amount = 2.0
 shader_parameter/blur_quality = 3
 shader_parameter/dither_strength = 0.1
 
-[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels")]
+[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +37,7 @@ add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/Scro
 new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
 panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")]
+bg_blur = NodePath("BlurContainer/BGBlur")
 
 [node name="VaultContainer" type="Control" parent="." unique_id=1432826734]
 layout_mode = 1
@@ -252,7 +253,7 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="BGBlur" type="ColorRect" parent="BlurContainer" unique_id=499332118]
-material = SubResource("ShaderMaterial_vp1ho")
+material = SubResource("ShaderMaterial_8yhsy")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
