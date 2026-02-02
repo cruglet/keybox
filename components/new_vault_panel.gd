@@ -23,6 +23,11 @@ func _ready() -> void:
 	_update_create_button_color()
 
 
+func _input(event: InputEvent) -> void:
+	if visible and event is InputEventKey and event.keycode == KEY_ESCAPE:
+		canceled.emit()
+
+
 func _on_new_vault_name_edit_text_changed(new_text: String) -> void:
 	selected_vault_name = new_text.strip_edges()
 	_validate_input()
