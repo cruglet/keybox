@@ -31,10 +31,10 @@ new_entry_panel = NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel")
 new_vault_panel = NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")
 flow_container = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer")
 copied_toast = NodePath("CopiedToast")
-vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox")
-create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/CreateVaultButton")
+vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox")
+create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton")
 add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
-new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/NewProfileChip")
+new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
 panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")]
 
@@ -140,14 +140,20 @@ theme_override_constants/separation = 36
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="VaultSelectorHbox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=374776243]
+[node name="ScrollContainer" type="ScrollContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1073311412]
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="VaultSelectorHbox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=374776243]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="NewProfileChip" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox" unique_id=220244992 instance=ExtResource("5_24rf1")]
+[node name="NewProfileChip" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=220244992 instance=ExtResource("5_24rf1")]
 layout_mode = 2
+is_preview = true
 
-[node name="CreateVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox" unique_id=2091243583]
+[node name="CreateVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=2091243583]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentHollowButton"
@@ -315,7 +321,7 @@ text = "Copied to Clipboard"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton" to="." method="_on_add_secret_button_pressed"]
-[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
 [connection signal="text_changed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
 [connection signal="access_granted" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_access_granted"]
 [connection signal="new_vault_name_changed" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_new_vault_name_changed"]

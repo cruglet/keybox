@@ -15,6 +15,8 @@ run/main_scene="uid://cwek83s4036ic"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="keybox"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+run/low_processor_mode=true
+boot_splash/bg_color=Color(0.05882353, 0.06666667, 0.08235294, 1)
 boot_splash/show_image=false
 config/icon="uid://rwd5v8je8xad"
 

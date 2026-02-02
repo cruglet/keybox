@@ -13,11 +13,3 @@ button_pressed = true
 text = "Vault (0)"
 icon = ExtResource("1_xy4vg")
 script = ExtResource("2_7853f")
-
-[node name="PopupMenu" type="PopupMenu" parent="." unique_id=2098545964]
-oversampling_override = 1.0
-item_count = 2
-item_0/text = "Edit"
-item_0/id = 0
-item_1/text = "Delete"
-item_1/id = 1
