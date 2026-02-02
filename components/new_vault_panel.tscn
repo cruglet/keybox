@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://djac3y52eodm"]
+
+[ext_resource type="Script" uid="uid://ckti4ousp1ygn" path="res://components/color_list_container.gd" id="1_05wqf"]
+[ext_resource type="Script" uid="uid://yr1hiuwm1ft6" path="res://components/new_vault_panel.gd" id="1_p8tpq"]
+
+[node name="NewVaultPanel" type="PanelContainer" unique_id=1257494744 node_paths=PackedStringArray("new_vault_color_selector", "new_vault_error_label", "new_vault_cancel_button", "new_vault_create_button")]
+custom_minimum_size = Vector2(450, 0)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_p8tpq")
+new_vault_color_selector = NodePath("MarginContainer/VBoxContainer/NewVaultColorSelector")
+new_vault_error_label = NodePath("MarginContainer/VBoxContainer/NewVaultErrorLabel")
+new_vault_cancel_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/NewVaultCancelButton")
+new_vault_create_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/NewVaultCreateButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1184291525]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1208300331]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=726489985]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Create New Vault"
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1619655192]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=510380022]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Vault Name"
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1097601199]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="NewVaultNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=2009236351]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "e.g. Personal, Business, Socials ..."
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=491419170]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Control8" type="Control" parent="MarginContainer/VBoxContainer" unique_id=596365951]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1752082412]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Vault Colorscheme"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1413354695]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="NewVaultColorSelector" type="FlowContainer" parent="MarginContainer/VBoxContainer" unique_id=556593885]
+layout_mode = 2
+script = ExtResource("1_05wqf")
+colors = Dictionary[String, Color]({
+"Amber Gold": Color(0.9607843, 0.61960787, 0.043137256, 1),
+"Amethyst Purple": Color(0.54509807, 0.36078432, 0.9647059, 1),
+"Emerald Mint": Color(0.0627451, 0.7254902, 0.5058824, 1),
+"Indigo": Color(0.3882353, 0.4, 0.94509804, 1),
+"Pink Rose": Color(0.9254902, 0.28235295, 0.6, 1),
+"Primal Blue": Color(0, 0.4627451, 1, 1),
+"Primal Red": Color(0.94509804, 0.27450982, 0.29803923, 1),
+"Sage Green": Color(0.5254902, 0.9372549, 0.6745098, 1),
+"Sky Breeze": Color(0.49019608, 0.827451, 0.9882353, 1),
+"Slate Grey": Color(0.39215687, 0.45490196, 0.54509807, 1),
+"Soft Coral": Color(0.9843137, 0.44313726, 0.52156866, 1),
+"Sunset Orange": Color(0.9764706, 0.4509804, 0.08627451, 1)
+})
+selected_color = 0
+color_order = Array[Color]([Color(0, 0.4627451, 1, 1), Color(0.94509804, 0.27450982, 0.29803923, 1), Color(0.0627451, 0.7254902, 0.5058824, 1), Color(0.9607843, 0.61960787, 0.043137256, 1), Color(0.54509807, 0.36078432, 0.9647059, 1), Color(0.3882353, 0.4, 0.94509804, 1), Color(0.9843137, 0.44313726, 0.52156866, 1), Color(0.39215687, 0.45490196, 0.54509807, 1), Color(0.49019608, 0.827451, 0.9882353, 1), Color(0.9254902, 0.28235295, 0.6, 1), Color(0.5254902, 0.9372549, 0.6745098, 1), Color(0.9764706, 0.4509804, 0.08627451, 1)])
+metadata/_custom_type_script = "uid://ckti4ousp1ygn"
+
+[node name="NewVaultErrorLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2127488775]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelError"
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control7" type="Control" parent="MarginContainer/VBoxContainer" unique_id=827302308]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=59794381]
+layout_mode = 2
+alignment = 2
+
+[node name="NewVaultCancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=331663233]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+
+[node name="NewVaultCreateButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=71392949]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 16
+text = "Create"
+
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/NewVaultNameEdit" to="." method="_on_new_vault_name_edit_text_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/NewVaultColorSelector" to="." method="_on_new_vault_color_selector_color_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/NewVaultCancelButton" to="." method="_on_new_vault_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/NewVaultCreateButton" to="." method="_on_new_vault_create_button_pressed"]

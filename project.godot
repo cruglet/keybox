@@ -16,7 +16,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="keybox"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/show_image=false
-config/icon="uid://d6mjr4byupf3"
+config/icon="uid://rwd5v8je8xad"
 
 [display]
 

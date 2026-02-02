@@ -5,6 +5,7 @@ extends Node
 static var accent_color: Color = Color.DODGER_BLUE
 
 static var _bindings: Array[Dictionary] = []
+static var _stylebox_cache: Dictionary = {}
 
 
 static func modify_color(base: Color, brightness: float = 1.0, alpha: float = 1.0) -> Color:
@@ -20,6 +21,9 @@ static func bind_color(
 	brightness: float = 1.0,
 	alpha: float = 1.0
 ) -> void:
+	if not is_instance_valid(control):
+		return
+		
 	var parts: PackedStringArray = theme_path.split("/")
 	var theme_type: String = parts[0]
 	var theme_name: String = parts[1] if parts.size() > 1 else ""
@@ -34,9 +38,21 @@ static func bind_color(
 	}
 	
 	if theme_type == "stylebox":
-		var stylebox: StyleBox = control.get_theme_stylebox(theme_name).duplicate()
-		control.add_theme_stylebox_override(theme_name, stylebox)
-		binding["stylebox"] = stylebox
+		var control_id: int = control.get_instance_id()
+		
+		if not _stylebox_cache.has(control_id):
+			_stylebox_cache[control_id] = {}
+		
+		if not _stylebox_cache[control_id].has(theme_name):
+			var base_stylebox: StyleBox = control.get_theme_stylebox(theme_name)
+			if base_stylebox == null:
+				return
+				
+			var stylebox: StyleBox = base_stylebox.duplicate()
+			control.add_theme_stylebox_override(theme_name, stylebox)
+			_stylebox_cache[control_id][theme_name] = stylebox
+		
+		binding["stylebox"] = _stylebox_cache[control_id][theme_name]
 	
 	elif theme_type == "node":
 		binding["node_property"] = theme_name
@@ -54,7 +70,7 @@ static func _apply_binding(binding: Dictionary) -> void:
 	var control: Control = binding["control"]
 	if not is_instance_valid(control):
 		return
-	
+		
 	var final_color: Color = modify_color(
 		accent_color,
 		binding["brightness"],
@@ -81,7 +97,6 @@ static func _refresh_all_bindings() -> void:
 		var binding: Dictionary = _bindings[i]
 		if is_instance_valid(binding["control"]):
 			_apply_binding(binding)
-			i -= 1
 		else:
 			_bindings.remove_at(i)
-			i -= 1
+		i -= 1

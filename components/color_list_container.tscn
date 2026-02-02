@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bp4k28nchmsgr"]
+
+[ext_resource type="Script" uid="uid://ckti4ousp1ygn" path="res://components/color_list_container.gd" id="1_uk30b"]
+
+[node name="ColorListContainer" type="FlowContainer" unique_id=129162090]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uk30b")
+colors = Dictionary[String, Color]({
+"Blue": Color(0, 0.4627451, 1, 1),
+"Red": Color(0.9443337, 0.2735747, 0.29763165, 1)
+})

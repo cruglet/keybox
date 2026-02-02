@@ -1,0 +1,8 @@
+<svg class="logo-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" rx="24" fill="#3b82f6" fill-opacity="0.15"></rect>
+                    <rect x="5" y="5" width="90" height="90" rx="24" stroke="#3b82f6" stroke-width="6"></rect>
+                    <path d="M50 20C35 20 25 26 25 40V58C25 72 50 82 50 82C50 82 75 72 75 58V40C75 26 65 20 50 20Z" fill="#3b82f6"></path>
+                    <circle cx="50" cy="44" r="7" fill="#ffffff"></circle>
+                    <path d="M46 48H54L56 64H44L46 48Z" fill="#ffffff"></path>
+                    <path d="M35 30C35 30 40 25 50 25" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.4"></path>
+                </svg>

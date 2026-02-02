@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ohekncr6mj6b"]
+
+[ext_resource type="Texture2D" uid="uid://b3kav46n32m7k" path="res://icons/circle.svg" id="1_xy4vg"]
+[ext_resource type="Script" uid="uid://drvqkc0snmv0e" path="res://components/vault_chip.gd" id="2_7853f"]
+
+[node name="VaultChip" type="Button" unique_id=220244992]
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentHollowButton"
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 12
+toggle_mode = true
+button_pressed = true
+text = "Vault (0)"
+icon = ExtResource("1_xy4vg")
+script = ExtResource("2_7853f")

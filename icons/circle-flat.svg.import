@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3kav46n32m7k"
-path="res://.godot/imported/circle.svg-7e626e61031d699b90b74782935b6dca.ctex"
+uid="uid://cl2w4dwu3w44v"
+path="res://.godot/imported/circle-flat.svg-8e0be2a0e120f6c3eef6b07a1034b6b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/circle.svg"
-dest_files=["res://.godot/imported/circle.svg-7e626e61031d699b90b74782935b6dca.ctex"]
+source_file="res://icons/circle-flat.svg"
+dest_files=["res://.godot/imported/circle-flat.svg-8e0be2a0e120f6c3eef6b07a1034b6b0.ctex"]
 
 [params]
 
@@ -38,6 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=5.0
+svg/scale=4.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

@@ -3,19 +3,31 @@
 [ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_b6q76"]
 [ext_resource type="Script" uid="uid://behtri2ppejjw" path="res://components/auth_panel.gd" id="1_uc8rb"]
 [ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_3fpcv"]
+[ext_resource type="Script" uid="uid://ckti4ousp1ygn" path="res://components/color_list_container.gd" id="4_kahu3"]
 
-[node name="AuthPanel" type="PanelContainer" unique_id=2056608960 node_paths=PackedStringArray("error_label", "access_button", "primary_key_input", "verify_key_input", "main_label", "sub_label", "lock_bg")]
-custom_minimum_size = Vector2(392, 420)
+[node name="AuthPanel" type="PanelContainer" unique_id=2056608960 node_paths=PackedStringArray("next_button", "access_button", "vault_name_input", "new_key_input", "verify_new_key_input", "auth_key_input", "new_vault_v_box", "new_key_v_box", "auth_key_v_box", "new_key_error_label", "auth_key_error_label", "main_label", "sub_label", "lock_bg", "colorscheme_label", "color_list_container")]
+custom_minimum_size = Vector2(392, 550)
+offset_right = 392.0
+offset_bottom = 550.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PrimaryPanel"
 script = ExtResource("1_uc8rb")
-error_label = NodePath("MarginContainer/VBoxContainer/ErrorLabel")
-access_button = NodePath("MarginContainer/VBoxContainer/AccessButton")
-primary_key_input = NodePath("MarginContainer/VBoxContainer/PrimaryKeyInput")
-verify_key_input = NodePath("MarginContainer/VBoxContainer/VerifyKeyInput")
-main_label = NodePath("MarginContainer/VBoxContainer/MainLabel")
-sub_label = NodePath("MarginContainer/VBoxContainer/SubLabel")
+next_button = NodePath("MarginContainer/VBoxContainer/NewVaultVBox/NextButton")
+access_button = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/EnterButton")
+vault_name_input = NodePath("MarginContainer/VBoxContainer/NewVaultVBox/VaultNameInput")
+new_key_input = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/NewKeyInput")
+verify_new_key_input = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/VerifyNewKeyInput")
+auth_key_input = NodePath("MarginContainer/VBoxContainer/AuthKeyVBox/AuthKeyInput")
+new_vault_v_box = NodePath("MarginContainer/VBoxContainer/NewVaultVBox")
+new_key_v_box = NodePath("MarginContainer/VBoxContainer/NewKeyVBox")
+auth_key_v_box = NodePath("MarginContainer/VBoxContainer/AuthKeyVBox")
+new_key_error_label = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/ErrorLabel")
+auth_key_error_label = NodePath("MarginContainer/VBoxContainer/AuthKeyVBox/ErrorLabel")
+main_label = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/MainLabel")
+sub_label = NodePath("MarginContainer/VBoxContainer/NewKeyVBox/SubLabel")
 lock_bg = NodePath("MarginContainer/VBoxContainer/LockBG")
+colorscheme_label = NodePath("MarginContainer/VBoxContainer/NewVaultVBox/ColorschemeLabel")
+color_list_container = NodePath("MarginContainer/VBoxContainer/NewVaultVBox/ColorListContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=882886751]
 layout_mode = 2
@@ -49,18 +61,98 @@ stretch_mode = 5
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="MainLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1973990320]
+[node name="NewVaultVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1958171755]
+visible = false
+layout_mode = 2
+
+[node name="MainLabel" type="Label" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=1453840772]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Setup Keybox"
+text = "Create Vault"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer" unique_id=265187621]
+[node name="SubLabel" type="Label" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=1681733453]
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 14
+text = "Let's create a vault to store your information."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=246342785]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="VaultNameInput" type="LineEdit" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=317523858]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_type_variation = &"LineEditMono"
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Vault Name"
+alignment = 1
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=1397390527]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ColorschemeLabel" type="Label" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=2106629444]
+self_modulate = Color(1, 1, 1, 0.3137255)
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 14
+text = "Vault Color: Primal Blue"
+vertical_alignment = 1
+
+[node name="ColorListContainer" type="FlowContainer" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=692239637]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("4_kahu3")
+colors = Dictionary[String, Color]({
+"Amber Gold": Color(0.9607843, 0.61960787, 0.043137256, 1),
+"Amethyst Purple": Color(0.54509807, 0.36078432, 0.9647059, 1),
+"Emerald Mint": Color(0.0627451, 0.7254902, 0.5058824, 1),
+"Indigo": Color(0.3882353, 0.4, 0.94509804, 1),
+"Pink Rose": Color(0.9254902, 0.28235295, 0.6, 1),
+"Primal Blue": Color(0, 0.4627451, 1, 1),
+"Primal Red": Color(0.94509804, 0.27450982, 0.29803923, 1),
+"Sage Green": Color(0.5254902, 0.9372549, 0.6745098, 1),
+"Sky Breeze": Color(0.49019608, 0.827451, 0.9882353, 1),
+"Slate Grey": Color(0.39215687, 0.45490196, 0.54509807, 1),
+"Soft Coral": Color(0.9843137, 0.44313726, 0.52156866, 1),
+"Sunset Orange": Color(0.9764706, 0.4509804, 0.08627451, 1)
+})
+selected_color = 0
+color_order = Array[Color]([Color(0, 0.4627451, 1, 1), Color(0.94509804, 0.27450982, 0.29803923, 1), Color(0.0627451, 0.7254902, 0.5058824, 1), Color(0.9607843, 0.61960787, 0.043137256, 1), Color(0.54509807, 0.36078432, 0.9647059, 1), Color(0.3882353, 0.4, 0.94509804, 1), Color(0.9843137, 0.44313726, 0.52156866, 1), Color(0.39215687, 0.45490196, 0.54509807, 1), Color(0.49019608, 0.827451, 0.9882353, 1), Color(0.9254902, 0.28235295, 0.6, 1), Color(0.5254902, 0.9372549, 0.6745098, 1), Color(0.9764706, 0.4509804, 0.08627451, 1)])
+metadata/_custom_type_script = "uid://ckti4ousp1ygn"
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=574696272]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=1988215238]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+disabled = true
+text = "Next"
+
+[node name="NewKeyVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=471961806]
+layout_mode = 2
+
+[node name="MainLabel" type="Label" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=1973990320]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Create a Key"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=265187621]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="SubLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=619236774]
+[node name="SubLabel" type="Label" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=619236774]
 layout_mode = 2
 theme_type_variation = &"LabelSecondary"
 theme_override_font_sizes/font_size = 14
@@ -68,11 +160,11 @@ text = "Set a master key to start securing your data."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1827659758]
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=1827659758]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="PrimaryKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=193846164]
+[node name="NewKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=193846164]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_type_variation = &"LineEditMono"
@@ -81,10 +173,10 @@ placeholder_text = "Create Master Key"
 alignment = 1
 secret = true
 
-[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer" unique_id=17340789]
+[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=17340789]
 layout_mode = 2
 
-[node name="VerifyKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=871989945]
+[node name="VerifyNewKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=871989945]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_type_variation = &"LineEditMono"
@@ -93,11 +185,11 @@ placeholder_text = "Verify Master Key"
 alignment = 1
 secret = true
 
-[node name="Control6" type="Control" parent="MarginContainer/VBoxContainer" unique_id=872621399]
+[node name="Control6" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=872621399]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 
-[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=549532561]
+[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=549532561]
 visible = false
 layout_mode = 2
 theme_type_variation = &"LabelError"
@@ -106,19 +198,85 @@ text = "Keys do not match. Please try again."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer" unique_id=925347865]
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=925347865]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="AccessButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=272293677]
-custom_minimum_size = Vector2(0, 48)
+[node name="EnterButton" type="Button" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=272293677]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 15
+text = "Enter Vault"
+
+[node name="AuthKeyVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=845982537]
+visible = false
+layout_mode = 2
+
+[node name="MainLabel" type="Label" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=1696560750]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Enter your Key"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=1582945193]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="SubLabel" type="Label" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=1667957700]
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 14
+text = "Enter your master key to enter your vault."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=2059825383]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="AuthKeyInput" type="LineEdit" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=1959688832]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_type_variation = &"LineEditMono"
+theme_override_font_sizes/font_size = 17
+placeholder_text = "Master Key"
+alignment = 1
+secret = true
+
+[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=2145657771]
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=909199702]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelError"
+theme_override_font_sizes/font_size = 12
+text = "Keys do not match. Please try again."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=1842583752]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="AccessButton" type="Button" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=789971430]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentButton"
 theme_override_font_sizes/font_size = 15
 text = "Access Vault"
 
-[connection signal="text_submitted" from="MarginContainer/VBoxContainer/PrimaryKeyInput" to="." method="_on_primary_key_input_text_submitted"]
-[connection signal="text_changed" from="MarginContainer/VBoxContainer/VerifyKeyInput" to="." method="_on_verify_key_input_text_changed"]
-[connection signal="text_submitted" from="MarginContainer/VBoxContainer/VerifyKeyInput" to="." method="_on_verify_key_input_text_submitted"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/AccessButton" to="." method="_on_access_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/NewVaultVBox/VaultNameInput" to="." method="_on_vault_name_input_text_changed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/NewVaultVBox/ColorListContainer" to="." method="_on_color_list_container_color_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/NewVaultVBox/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/NewKeyVBox/NewKeyInput" to="." method="_on_new_key_input_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/NewKeyVBox/NewKeyInput" to="." method="_on_new_key_input_text_submitted"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/NewKeyVBox/VerifyNewKeyInput" to="." method="_on_verify_new_key_input_text_changed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/NewKeyVBox/VerifyNewKeyInput" to="." method="_on_verify_new_key_input_text_submitted"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/NewKeyVBox/EnterButton" to="." method="_on_enter_button_pressed"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/AuthKeyVBox/AuthKeyInput" to="." method="_on_auth_key_input_text_submitted"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AuthKeyVBox/AccessButton" to="." method="_on_access_button_pressed"]

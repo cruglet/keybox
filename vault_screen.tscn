@@ -1,36 +1,41 @@
 [gd_scene format=3 uid="uid://cwek83s4036ic"]
 
-[ext_resource type="Script" uid="uid://cy7il3cu1b0cp" path="res://vault.gd" id="1_2n7r2"]
-[ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="1_lqr8i"]
-[ext_resource type="Shader" uid="uid://c116cf6fjsftq" path="res://shaders/blur.gdshader" id="2_cmbqh"]
-[ext_resource type="Texture2D" uid="uid://d1odhvtjhqdlm" path="res://icons/plus.svg" id="3_0obug"]
-[ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://components/auth_panel.tscn" id="3_cmbqh"]
-[ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_u52yu"]
-[ext_resource type="Texture2D" uid="uid://b3kav46n32m7k" path="res://icons/circle.svg" id="4_n74d2"]
-[ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="5_0obug"]
+[ext_resource type="Script" uid="uid://cy7il3cu1b0cp" path="res://vault_screen.gd" id="1_24rf1"]
+[ext_resource type="Texture2D" uid="uid://d6mjr4byupf3" path="res://icons/logo.svg" id="2_f6coe"]
+[ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_8yhsy"]
+[ext_resource type="Texture2D" uid="uid://d1odhvtjhqdlm" path="res://icons/plus.svg" id="4_jm6fk"]
+[ext_resource type="PackedScene" uid="uid://ohekncr6mj6b" path="res://components/vault_chip.tscn" id="5_24rf1"]
+[ext_resource type="Shader" uid="uid://c116cf6fjsftq" path="res://shaders/blur.gdshader" id="6_l4fpi"]
+[ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://components/auth_panel.tscn" id="7_6xhj2"]
+[ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="8_xr618"]
+[ext_resource type="PackedScene" uid="uid://djac3y52eodm" path="res://components/new_vault_panel.tscn" id="9_f6coe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vp1ho"]
-shader = ExtResource("2_cmbqh")
+shader = ExtResource("6_l4fpi")
 shader_parameter/blur_amount = 2.0
 shader_parameter/blur_quality = 3
 shader_parameter/dither_strength = 0.1
 
-[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "flow_container", "copied_toast", "profile_button", "add_secret_button", "logo_bg")]
+[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2n7r2")
+script = ExtResource("1_24rf1")
 blur_container = NodePath("BlurContainer")
 auth_panel = NodePath("BlurContainer/AuthPanelContainer/AuthPanel")
 new_entry_panel = NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel")
+new_vault_panel = NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")
 flow_container = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer")
 copied_toast = NodePath("CopiedToast")
-profile_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/ProfileButton")
+vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox")
+create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/CreateVaultButton")
 add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
+new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/NewProfileChip")
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
+panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")]
 
 [node name="VaultContainer" type="Control" parent="." unique_id=1432826734]
 layout_mode = 1
@@ -80,7 +85,7 @@ theme_override_constants/separation = 0
 [node name="LogoBG" type="TextureRect" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=619076213]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-texture = ExtResource("1_lqr8i")
+texture = ExtResource("2_f6coe")
 expand_mode = 1
 stretch_mode = 5
 
@@ -97,7 +102,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_u52yu")
+texture = ExtResource("3_8yhsy")
 expand_mode = 1
 
 [node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=867113263]
@@ -124,7 +129,7 @@ theme_type_variation = &"AccentButton"
 theme_override_constants/icon_max_width = 18
 theme_override_font_sizes/font_size = 15
 text = "Add Key"
-icon = ExtResource("3_0obug")
+icon = ExtResource("4_jm6fk")
 
 [node name="HSeparator" type="HSeparator" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=202896877]
 layout_mode = 2
@@ -134,15 +139,20 @@ theme_override_constants/separation = 36
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=374776243]
+[node name="VaultSelectorHbox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=374776243]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="NewProfileChip" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox" unique_id=220244992 instance=ExtResource("5_24rf1")]
 layout_mode = 2
 
-[node name="ProfileButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1031082365]
+[node name="CreateVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox" unique_id=2091243583]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentHollowButton"
-text = "Test"
-icon = ExtResource("4_n74d2")
+theme_override_constants/icon_max_width = 16
+text = "New Vault"
+icon = ExtResource("4_jm6fk")
 
 [node name="Control2" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=225529159]
 custom_minimum_size = Vector2(0, 40)
@@ -172,6 +182,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="BGBlur" type="ColorRect" parent="BlurContainer" unique_id=499332118]
 material = SubResource("ShaderMaterial_vp1ho")
@@ -191,8 +202,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AuthPanel" parent="BlurContainer/AuthPanelContainer" unique_id=2056608960 instance=ExtResource("3_cmbqh")]
-visible = false
+[node name="AuthPanel" parent="BlurContainer/AuthPanelContainer" unique_id=2056608960 instance=ExtResource("7_6xhj2")]
 layout_mode = 2
 
 [node name="NewEntryPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=199176223]
@@ -204,7 +214,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="NewEntryPanel" parent="BlurContainer/NewEntryPanelContainer" unique_id=1796737077 instance=ExtResource("5_0obug")]
+[node name="NewEntryPanel" parent="BlurContainer/NewEntryPanelContainer" unique_id=1796737077 instance=ExtResource("8_xr618")]
+visible = false
+layout_mode = 2
+
+[node name="NewVaultPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=855514996]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NewVaultPanel" parent="BlurContainer/NewVaultPanelContainer" unique_id=1257494744 instance=ExtResource("9_f6coe")]
 visible = false
 layout_mode = 2
 
@@ -231,7 +254,11 @@ text = "Copied to Clipboard"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton" to="." method="_on_add_secret_button_pressed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
 [connection signal="text_changed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
 [connection signal="access_granted" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_access_granted"]
+[connection signal="new_vault_name_changed" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_new_vault_name_changed"]
 [connection signal="canceled" from="BlurContainer/NewEntryPanelContainer/NewEntryPanel" to="." method="_on_new_entry_panel_canceled"]
 [connection signal="created" from="BlurContainer/NewEntryPanelContainer/NewEntryPanel" to="." method="_on_new_entry_panel_created"]
+[connection signal="canceled" from="BlurContainer/NewVaultPanelContainer/NewVaultPanel" to="." method="_on_new_vault_panel_canceled"]
+[connection signal="created" from="BlurContainer/NewVaultPanelContainer/NewVaultPanel" to="." method="_on_new_vault_panel_created"]
