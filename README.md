@@ -10,9 +10,9 @@ Features:
 - [x] Vault renaming
 - [x] Vault deleting
 - [x] Change vault colorscheme
+- [x] Manual display scaling
 
 TODO:
-- [ ] Manual display scaling
 - [ ] Streamlined exporting
 
 Maybe I'll implement some form of cloud syncing in the future, but for now just working with the vault file manually should be fine.
