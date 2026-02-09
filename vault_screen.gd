@@ -21,6 +21,7 @@ const VAULT_CHIP = preload("uid://ohekncr6mj6b")
 @export var logo_bg: TextureRect
 @export var panels: Array[Control]
 @export var bg_blur: ColorRect
+@export var zoom_tip: Label
 
 var panel_tween: Tween
 var toast_tween: Tween
@@ -32,6 +33,22 @@ func _ready() -> void:
 	_setup_theme()
 	_setup_signals()
 	_initialize_vault()
+	
+	if OS.get_name() == "macOS":
+		zoom_tip.text = zoom_tip.text.replace("CTRL", "CMD")
+	if not Metadata.has_value(&"scale"):
+		zoom_tip.show()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_scale_in"):
+		get_window().content_scale_factor += 0.25
+		zoom_tip.hide()
+		Metadata.set_value(&"scale", get_window().content_scale_factor)
+	elif event.is_action_pressed("ui_scale_out"):
+		get_window().content_scale_factor -= 0.25
+		zoom_tip.hide()
+		Metadata.set_value(&"scale", get_window().content_scale_factor)
 
 
 func _setup_window() -> void:
@@ -48,6 +65,9 @@ func _setup_window() -> void:
 	var min_size: Vector2 = Vector2(1280, 720)
 	if resolution.x >= 3840 or resolution.y >= 2160:
 		screen_scale *= 1.25
+	
+	if Metadata.has_value(&"scale"):
+		screen_scale = Metadata.get_value(&"scale")
 	
 	window.content_scale_factor = screen_scale
 	

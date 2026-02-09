@@ -21,7 +21,7 @@ shader_parameter/blur_amount = 2.0
 shader_parameter/blur_quality = 3
 shader_parameter/dither_strength = 0.1
 
-[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "edit_entry_panel", "edit_vault_panel", "delete_confirmation", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur")]
+[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "edit_entry_panel", "edit_vault_panel", "delete_confirmation", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur", "zoom_tip")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,6 +45,7 @@ new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/Scrol
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
 panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel"), NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation"), NodePath("BlurContainer/EditVaultPanelContainer/EditVaultPanel")]
 bg_blur = NodePath("BlurContainer/BGBlur")
+zoom_tip = NodePath("VaultContainer/ZoomTip")
 
 [node name="VaultContainer" type="Control" parent="." unique_id=1432826734]
 layout_mode = 1
@@ -257,6 +258,27 @@ obfuscated = true
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
+
+[node name="ZoomTip" type="Label" parent="VaultContainer" unique_id=1220775386]
+visible = false
+self_modulate = Color(1, 1, 1, 0.15686275)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -153.0
+offset_top = -24.0
+offset_right = 158.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 12
+text = "You can use CTRL+ or CTRL- to zoom in/out."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BlurContainer" type="Control" parent="." unique_id=770378332]
 visible = false
