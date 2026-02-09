@@ -2,3 +2,5 @@
 .godot/
 build/
 /android/
+
+.DS_Store
