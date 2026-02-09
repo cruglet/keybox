@@ -115,4 +115,5 @@ func _on_password_edit_focus_exited() -> void:
 
 
 func _on_generate_button_pressed() -> void:
+	password_edit.secret = false
 	password_edit.text = _generate_password()
