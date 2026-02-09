@@ -5,6 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://bh3u1pivn2wse" path="res://icons/delete.svg" id="2_cgemw"]
 [ext_resource type="Texture2D" uid="uid://clpo5hmt1ho3y" path="res://icons/edit.svg" id="2_fm0h3"]
 
+[sub_resource type="GDScript" id="GDScript_fm0h3"]
+script/source = "extends RichTextLabel
+
+
+func _on_meta_hover_started(meta: Variant) -> void:
+	text = \"[u]%s[/u]\" % text
+
+
+func _on_meta_hover_ended(meta: Variant) -> void:
+	text = text.replace(\"[u]\", \"\").replace(\"[/u]\",\"\")
+"
+
 [node name="VaultEntry" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_label", "username_label", "actual_container", "obfuscated_container", "filler_1", "filler_2", "glow", "bg_glow", "copy_button", "delete_button", "edit_button")]
 offset_right = 2.0
 offset_bottom = 2.0
@@ -77,11 +89,16 @@ theme_type_variation = &"DangerIconButton"
 theme_override_constants/icon_max_width = 16
 icon = ExtResource("2_cgemw")
 
-[node name="UsernameLabel" type="Label" parent="MarginContainer/ActualContainer" unique_id=473123609]
+[node name="UsernameLabel" type="RichTextLabel" parent="MarginContainer/ActualContainer" unique_id=561649585]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_type_variation = &"LabelSecondary"
-theme_override_font_sizes/font_size = 12
-text = "user@email.com"
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[url]user@email.com[/url]"
+fit_content = true
+meta_underlined = false
+script = SubResource("GDScript_fm0h3")
 
 [node name="Control" type="Control" parent="MarginContainer/ActualContainer" unique_id=1806592441]
 custom_minimum_size = Vector2(0, 12)
@@ -225,4 +242,7 @@ metadata/_edit_lock_ = true
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/ActualContainer/NameLabel/EditButton" to="." method="_on_edit_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ActualContainer/NameLabel/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="meta_clicked" from="MarginContainer/ActualContainer/UsernameLabel" to="." method="_on_username_label_meta_clicked"]
+[connection signal="meta_hover_ended" from="MarginContainer/ActualContainer/UsernameLabel" to="MarginContainer/ActualContainer/UsernameLabel" method="_on_meta_hover_ended"]
+[connection signal="meta_hover_started" from="MarginContainer/ActualContainer/UsernameLabel" to="MarginContainer/ActualContainer/UsernameLabel" method="_on_meta_hover_started"]
 [connection signal="pressed" from="MarginContainer/ActualContainer/CopyButton" to="." method="_on_copy_button_pressed"]

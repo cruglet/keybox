@@ -2,6 +2,7 @@ class_name VaultEntry
 extends PanelContainer
 
 
+signal username_copied
 signal password_copied
 signal delete_request(ref: VaultEntry)
 signal edit_request(ref: VaultEntry)
@@ -14,7 +15,7 @@ var entry_password: String = ""
 
 @export_group("Internal")
 @export var name_label: Label
-@export var username_label: Label
+@export var username_label: RichTextLabel
 @export var actual_container: VBoxContainer
 @export var obfuscated_container: VBoxContainer
 @export var filler_1: Panel
@@ -50,12 +51,12 @@ func show_normal() -> void:
 	obfuscated_container.hide()
 	
 	name_label.text = entry_name
-	username_label.text = entry_username
+	username_label.text = "[url]%s[/url]" % entry_username
 
 
 func update_display() -> void:
 	name_label.text = entry_name
-	username_label.text = entry_username
+	username_label.text = "[url]%s[/url]" % entry_username
 
 
 func animate_copy() -> void:
@@ -107,3 +108,8 @@ func _on_delete_button_pressed() -> void:
 
 func _on_edit_button_pressed() -> void:
 	edit_request.emit(self)
+
+
+func _on_username_label_meta_clicked(_meta: Variant) -> void:
+	DisplayServer.clipboard_set(entry_username)
+	username_copied.emit()

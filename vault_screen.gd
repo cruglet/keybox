@@ -148,6 +148,7 @@ func _hide_all_panels() -> void:
 func _create_vault_entry() -> VaultEntry:
 	var vault_entry: VaultEntry = VAULT_ENTRY.instantiate()
 	vault_entry.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vault_entry.username_copied.connect(_on_username_copied)
 	vault_entry.password_copied.connect(_on_password_copied)
 	vault_entry.delete_request.connect(_on_delete_request)
 	vault_entry.edit_request.connect(_on_edit_request)
@@ -281,6 +282,10 @@ func _on_vault_chip_toggled(vault_index: int) -> void:
 				break
 		
 		_load_entries()
+
+
+func _on_username_copied() -> void:
+	_show_copied_toast()
 
 
 func _on_password_copied() -> void:
