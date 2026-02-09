@@ -61,6 +61,39 @@ static func bind_color(
 	_apply_binding(binding)
 	
 
+static func unbind_color(control: Control, theme_path: String = "", property: String = "") -> void:
+	if not is_instance_valid(control):
+		return
+	
+	var i: int = _bindings.size() - 1
+	while i >= 0:
+		var binding: Dictionary = _bindings[i]
+		
+		if binding["control"] == control:
+			if theme_path == "" and property == "":
+				_bindings.remove_at(i)
+			else:
+				var path_match: bool = theme_path == "" or \
+					(binding["theme_type"] + "/" + binding["theme_name"]) == theme_path
+				var prop_match: bool = property == "" or binding["property"] == property
+				
+				if path_match and prop_match:
+					_bindings.remove_at(i)
+		
+		i -= 1
+	
+	var control_id: int = control.get_instance_id()
+	if _stylebox_cache.has(control_id):
+		var has_stylebox_bindings: bool = false
+		for binding: Dictionary in _bindings:
+			if binding["control"] == control and binding["theme_type"] == "stylebox":
+				has_stylebox_bindings = true
+				break
+		
+		if not has_stylebox_bindings:
+			_stylebox_cache.erase(control_id)
+
+
 static func set_accent_color(color: Color) -> void:
 	accent_color = color
 	_refresh_all_bindings()

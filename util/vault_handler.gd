@@ -114,6 +114,21 @@ static func select_vault(index: int) -> bool:
 	return true
 
 
+static func update_selected_vault(vault_name: String, vault_color: String) -> void:
+	if SELECTED_VAULT_INDEX < 0 or SELECTED_VAULT_INDEX >= VAULTS_DATA.size():
+		return
+	
+	VAULTS_DATA[SELECTED_VAULT_INDEX]["name"] = vault_name
+	VAULTS_DATA[SELECTED_VAULT_INDEX]["color"] = vault_color
+	
+	var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
+	var master_salt: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+	var master_verifier: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+	file.close()
+	
+	_write_vault_file(master_salt, master_verifier)
+
+
 static func get_vault_names() -> Array[String]:
 	var names: Array[String] = []
 	for vault_dict: Dictionary in VAULTS_DATA:
@@ -176,6 +191,26 @@ static func write_entries(entries: Array) -> void:
 	file.close()
 	
 	_write_vault_file(master_salt, master_verifier)
+
+
+static func delete_selected_vault() -> bool:
+	if SELECTED_VAULT_INDEX < 0 or SELECTED_VAULT_INDEX >= VAULTS_DATA.size():
+		return false
+	
+	VAULTS_DATA.remove_at(SELECTED_VAULT_INDEX)
+	
+	if VAULTS_DATA.is_empty():
+		SELECTED_VAULT_INDEX = 0
+	elif SELECTED_VAULT_INDEX >= VAULTS_DATA.size():
+		SELECTED_VAULT_INDEX = VAULTS_DATA.size() - 1
+	
+	var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
+	var master_salt: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+	var master_verifier: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+	file.close()
+	
+	_write_vault_file(master_salt, master_verifier)
+	return true
 
 
 static func _load_vaults_data() -> void:

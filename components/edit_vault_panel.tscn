@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://pff1mtanhrck"]
+
+[ext_resource type="Script" uid="uid://bl36swfgewpf1" path="res://components/edit_vault_panel.gd" id="1_62wt7"]
+[ext_resource type="PackedScene" uid="uid://bp4k28nchmsgr" path="res://components/color_list_container.tscn" id="2_na5xd"]
+[ext_resource type="Texture2D" uid="uid://bh3u1pivn2wse" path="res://icons/delete.svg" id="2_rg6uu"]
+
+[node name="EditVaultPanel" type="PanelContainer" unique_id=1257494744 node_paths=PackedStringArray("vault_name_edit", "vault_color_selector", "colorscheme_label", "edit_v_box", "delete_v_box", "are_you_sure", "save_button")]
+custom_minimum_size = Vector2(450, 0)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_62wt7")
+vault_name_edit = NodePath("MarginContainer/EditVBox/VaultNameEdit")
+vault_color_selector = NodePath("MarginContainer/EditVBox/VaultColorSelector")
+colorscheme_label = NodePath("MarginContainer/EditVBox/ColorschemeLabel")
+edit_v_box = NodePath("MarginContainer/EditVBox")
+delete_v_box = NodePath("MarginContainer/DeleteVBox")
+are_you_sure = NodePath("MarginContainer/DeleteVBox/AreYouSure")
+save_button = NodePath("MarginContainer/EditVBox/HBoxContainer/SaveButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1184291525]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="EditVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1208300331]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/EditVBox" unique_id=726489985]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Edit Vault"
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/EditVBox/Label" unique_id=628149897]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -21.5
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_type_variation = &"DangerIconButton"
+theme_override_constants/icon_max_width = 18
+icon = ExtResource("2_rg6uu")
+icon_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/EditVBox" unique_id=1619655192]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/EditVBox" unique_id=510380022]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Vault Name"
+
+[node name="Control4" type="Control" parent="MarginContainer/EditVBox" unique_id=1097601199]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VaultNameEdit" type="LineEdit" parent="MarginContainer/EditVBox" unique_id=2009236351]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "e.g. Personal, Business, Socials ..."
+
+[node name="Control3" type="Control" parent="MarginContainer/EditVBox" unique_id=491419170]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Control8" type="Control" parent="MarginContainer/EditVBox" unique_id=596365951]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="ColorschemeLabel" type="Label" parent="MarginContainer/EditVBox" unique_id=1752082412]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+text = "Vault Colorscheme: Primal Blue"
+
+[node name="Control2" type="Control" parent="MarginContainer/EditVBox" unique_id=1413354695]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VaultColorSelector" parent="MarginContainer/EditVBox" unique_id=882808407 instance=ExtResource("2_na5xd")]
+layout_mode = 2
+colors = Dictionary[String, Color]({
+"Amber Gold": Color(0.9607843, 0.61960787, 0.043137256, 1),
+"Amethyst Purple": Color(0.54509807, 0.36078432, 0.9647059, 1),
+"Emerald Mint": Color(0.18698421, 0.6503449, 0.5818599, 1),
+"Indigo": Color(0.3882353, 0.4, 0.94509804, 1),
+"Pink Rose": Color(0.9254902, 0.28235295, 0.6, 1),
+"Primal Blue": Color(0, 0.4627451, 1, 1),
+"Primal Green": Color(0.07142385, 0.6178539, 0.41995677, 1),
+"Primal Red": Color(0.94509804, 0.27450982, 0.29803923, 1),
+"Slate Grey": Color(0.39215687, 0.45490196, 0.54509807, 1),
+"Soft Coral": Color(0.9843137, 0.44313726, 0.52156866, 1),
+"Sunset Orange": Color(0.9764706, 0.4509804, 0.08627451, 1)
+})
+color_order = Array[Color]([Color(0, 0.4627451, 1, 1), Color(0.94509804, 0.27450982, 0.29803923, 1), Color(0.07142385, 0.6178539, 0.41995677, 1), Color(0.9607843, 0.61960787, 0.043137256, 1), Color(0.54509807, 0.36078432, 0.9647059, 1), Color(0.3882353, 0.4, 0.94509804, 1), Color(0.39215687, 0.45490196, 0.54509807, 1), Color(0.9843137, 0.44313726, 0.52156866, 1), Color(0.9764706, 0.4509804, 0.08627451, 1), Color(0.9254902, 0.28235295, 0.6, 1), Color(0.18698421, 0.6503449, 0.5818599, 1)])
+
+[node name="NewVaultErrorLabel" type="Label" parent="MarginContainer/EditVBox" unique_id=2127488775]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelError"
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control7" type="Control" parent="MarginContainer/EditVBox" unique_id=827302308]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/EditVBox" unique_id=59794381]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="MarginContainer/EditVBox/HBoxContainer" unique_id=331663233]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+
+[node name="SaveButton" type="Button" parent="MarginContainer/EditVBox/HBoxContainer" unique_id=71392949]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 16
+text = "Save"
+
+[node name="DeleteVBox" type="VBoxContainer" parent="MarginContainer" unique_id=601300061]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/DeleteVBox" unique_id=1363718428]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Delete Vault"
+
+[node name="Control2" type="Control" parent="MarginContainer/DeleteVBox" unique_id=165370044]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="AreYouSure" type="Label" parent="MarginContainer/DeleteVBox" unique_id=1841128679]
+self_modulate = Color(1, 1, 1, 0.73333335)
+custom_minimum_size = Vector2(368, 0)
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+text = "Are you sure you want to delete \"Vault\"?
+
+This is permanent, and all stored passwords under this vault will be deleted."
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/DeleteVBox" unique_id=1086422324]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/DeleteVBox" unique_id=1099048256]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="DeleteCancelButton" type="Button" parent="MarginContainer/DeleteVBox/HBoxContainer" unique_id=273442398]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+
+[node name="TrueDeleteButton" type="Button" parent="MarginContainer/DeleteVBox/HBoxContainer" unique_id=434940298]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"DangerButton"
+theme_override_font_sizes/font_size = 16
+text = "Delete"
+
+[connection signal="pressed" from="MarginContainer/EditVBox/Label/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/EditVBox/VaultNameEdit" to="." method="_on_vault_name_edit_text_changed"]
+[connection signal="color_changed" from="MarginContainer/EditVBox/VaultColorSelector" to="." method="_on_vault_color_selector_color_changed"]
+[connection signal="pressed" from="MarginContainer/EditVBox/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/EditVBox/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/DeleteVBox/HBoxContainer/DeleteCancelButton" to="." method="_on_delete_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/DeleteVBox/HBoxContainer/TrueDeleteButton" to="." method="_on_true_delete_button_pressed"]

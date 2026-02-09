@@ -20,8 +20,7 @@ const CIRCLE_FLAT = preload("uid://cl2w4dwu3w44v")
 		else:
 			selected_color = -1
 		
-		if Engine.is_editor_hint():
-			_apply_selected_color()
+		_apply_selected_color()
 
 
 @export_group("Color Orderer")
@@ -106,7 +105,7 @@ func _rebuild_buttons() -> void:
 	var index: int = 0
 	
 	for color: Color in color_order:
-		var c_name: String = _get_color_name(color)
+		var c_name: String = get_color_name(color)
 		if c_name.is_empty():
 			index += 1
 			continue
@@ -133,7 +132,7 @@ func _apply_selected_color() -> void:
 		btn.mouse_filter = Control.MOUSE_FILTER_IGNORE if i == selected_color else Control.MOUSE_FILTER_STOP
 
 
-func _get_color_name(color: Color) -> String:
+func get_color_name(color: Color) -> String:
 	for c_name: String in colors:
 		if colors[c_name] == color:
 			return c_name

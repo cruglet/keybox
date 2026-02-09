@@ -10,6 +10,7 @@ const VAULT_CHIP = preload("uid://ohekncr6mj6b")
 @export var new_entry_panel: NewEntry
 @export var new_vault_panel: NewVaultPanel
 @export var edit_entry_panel: EditEntryPanel
+@export var edit_vault_panel: EditVaultPanel
 @export var delete_confirmation: DeleteConfirmation
 @export var flow_container: FlowContainer
 @export var copied_toast: PanelContainer
@@ -81,7 +82,6 @@ func _setup_signals() -> void:
 		edit_entry_panel.edit_confirmed.connect(_on_edit_entry_panel_edit_confirmed)
 	if not edit_entry_panel.canceled.is_connected(_on_edit_entry_panel_canceled):
 		edit_entry_panel.canceled.connect(_on_edit_entry_panel_canceled)
-	#if not delete_confirmation.delete_request.is_connected(_on_delete_request)
 
 
 func _initialize_vault() -> void:
@@ -186,6 +186,12 @@ func _populate_vault_chips() -> void:
 		vault_selector_hbox.add_child(chip)
 		vault_selector_hbox.move_child(chip, vault_selector_hbox.get_child_count() - 2)
 		vault_chips.append(chip)
+		
+		# Bind selected chip to Chroma's accent color, unbind others
+		if chip.is_selected:
+			chip.use_chroma = true
+		else:
+			chip.use_chroma = false
 
 
 func _update_selected_chip_count() -> void:
@@ -258,10 +264,22 @@ func _on_vault_chip_toggled(vault_index: int) -> void:
 		return
 	
 	if VaultHandler.select_vault(vault_index):
+		# First unbind all chips and update their selection state
 		for chip: VaultChip in vault_chips:
+			if chip.is_selected:
+				# Unbind the previously selected chip first
+				chip.use_chroma = false
 			chip.is_selected = chip.vault_index == vault_index
 		
+		# Apply the new accent color
 		_apply_selected_vault_color()
+		
+		# Now bind the newly selected chip
+		for chip: VaultChip in vault_chips:
+			if chip.is_selected:
+				chip.use_chroma = true
+				break
+		
 		_load_entries()
 
 
@@ -407,3 +425,52 @@ func _on_delete_confirmation_delete_request(ref: VaultEntry) -> void:
 
 func _on_delete_confirmation_canceled() -> void:
 	hide_panel(delete_confirmation)
+
+
+func _on_edit_vault_button_pressed() -> void:
+	edit_vault_panel.assign()
+	show_panel(edit_vault_panel)
+
+
+func _on_edit_vault_panel_canceled() -> void:
+	hide_panel(edit_vault_panel)
+
+
+func _on_edit_vault_panel_save_request(v_name: String, v_color: Color) -> void:
+	VaultHandler.update_selected_vault(v_name, "#" + v_color.to_html(false))
+	_apply_selected_vault_color()
+	_populate_vault_chips()
+	hide_panel(edit_vault_panel)
+
+
+func _on_edit_vault_panel_delete_request() -> void:
+	var old_index: int = VaultHandler.SELECTED_VAULT_INDEX
+	var vault_count: int = VaultHandler.get_vault_count()
+	
+	if vault_count == 0:
+		return
+	
+	var next_index: int = -1
+	
+	if old_index > 0:
+		next_index = old_index - 1
+	elif old_index < vault_count - 1:
+		next_index = old_index + 1
+	
+	if not VaultHandler.delete_selected_vault():
+		return
+	
+	for c: Node in flow_container.get_children():
+		c.queue_free()
+	
+	if VaultHandler.get_vault_count() > 0 and next_index != -1:
+		VaultHandler.select_vault(min(next_index, VaultHandler.get_vault_count() - 1))
+		_apply_selected_vault_color()
+		_populate_vault_chips()
+		_load_entries()
+	else:
+		vault_chips.clear()
+		Chroma.set_accent_color(Color.WHITE)
+		_populate_vault_chips()
+	
+	hide_panel(edit_vault_panel)

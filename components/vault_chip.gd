@@ -1,6 +1,7 @@
 class_name VaultChip
 extends Button
 
+
 signal vault_toggled(vault_index: int)
 signal vault_edit(vault_index: int)
 signal vault_delete(vault_index: int)
@@ -10,8 +11,12 @@ signal vault_delete(vault_index: int)
 var use_chroma: bool = false:
 	set(value):
 		use_chroma = value
-		if value and is_node_ready():
-			_bind_chroma()
+		if is_node_ready():
+			if value:
+				_bind_chroma()
+			else:
+				_unbind_chroma()
+				_apply_vault_color()
 
 var vault_index: int = -1
 
@@ -60,27 +65,40 @@ func _bind_chroma() -> void:
 	Chroma.bind_color(self, "color/icon_hover_pressed_color", "", 1.0, 1.0)
 
 
+func _unbind_chroma() -> void:
+	Chroma.unbind_color(self, "stylebox/normal", "border_color")
+	Chroma.unbind_color(self, "stylebox/normal", "bg_color")
+	Chroma.unbind_color(self, "stylebox/hover", "border_color")
+	Chroma.unbind_color(self, "stylebox/hover", "bg_color")
+	Chroma.unbind_color(self, "stylebox/pressed", "border_color")
+	Chroma.unbind_color(self, "stylebox/pressed", "bg_color")
+	Chroma.unbind_color(self, "color/icon_normal_color", "")
+	Chroma.unbind_color(self, "color/icon_hover_color", "")
+	Chroma.unbind_color(self, "color/icon_pressed_color", "")
+	Chroma.unbind_color(self, "color/icon_hover_pressed_color", "")
+
+
 func _apply_vault_color() -> void:
 	if not is_node_ready():
 		return
-
+	
 	var color: Color = Color(vault_color)
-
+	
 	var normal_style: StyleBoxFlat = get_theme_stylebox("normal").duplicate() as StyleBoxFlat
 	normal_style.border_color = color
 	normal_style.bg_color = Color(color.r, color.g, color.b, 0.0)
 	add_theme_stylebox_override("normal", normal_style)
-
+	
 	var hover_style: StyleBoxFlat = get_theme_stylebox("hover").duplicate() as StyleBoxFlat
 	hover_style.border_color = color
 	hover_style.bg_color = Color(color.r, color.g, color.b, 0.15)
 	add_theme_stylebox_override("hover", hover_style)
-
+	
 	var pressed_style: StyleBoxFlat = get_theme_stylebox("pressed").duplicate() as StyleBoxFlat
 	pressed_style.border_color = color
 	pressed_style.bg_color = Color(color.r, color.g, color.b, 0.3)
 	add_theme_stylebox_override("pressed", pressed_style)
-
+	
 	add_theme_color_override("icon_normal_color", color)
 	add_theme_color_override("icon_hover_color", color)
 	add_theme_color_override("icon_pressed_color", color)
@@ -97,6 +115,7 @@ func _update_display() -> void:
 func _update_selected_state() -> void:
 	if not is_node_ready():
 		return
+	
 	mouse_filter = MOUSE_FILTER_IGNORE if is_selected else MOUSE_FILTER_STOP
 	button_pressed = is_selected
 
