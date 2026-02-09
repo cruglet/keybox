@@ -1,8 +1,10 @@
 class_name VaultEntry
 extends PanelContainer
 
+
 signal password_copied
 signal delete_request(ref: VaultEntry)
+signal edit_request(ref: VaultEntry)
 
 var entry_name: String = ""
 var entry_username: String = ""
@@ -13,16 +15,15 @@ var entry_password: String = ""
 @export_group("Internal")
 @export var name_label: Label
 @export var username_label: Label
-
 @export var actual_container: VBoxContainer
 @export var obfuscated_container: VBoxContainer
-
 @export var filler_1: Panel
 @export var filler_2: Panel
 @export var glow: Panel
 @export var bg_glow: Panel
 @export var copy_button: Button
 @export var delete_button: Button
+@export var edit_button: Button
 
 var glow_tween: Tween
 var bg_glow_tween: Tween
@@ -48,6 +49,11 @@ func show_normal() -> void:
 	actual_container.show()
 	obfuscated_container.hide()
 	
+	name_label.text = entry_name
+	username_label.text = entry_username
+
+
+func update_display() -> void:
 	name_label.text = entry_name
 	username_label.text = entry_username
 
@@ -82,6 +88,7 @@ func _on_mouse_entered() -> void:
 	bg_glow_tween = create_tween().set_ease(Tween.EASE_OUT).set_parallel()
 	bg_glow_tween.tween_property(bg_glow, ^"self_modulate", Color.WHITE, 0.15)
 	bg_glow_tween.tween_property(delete_button, ^"self_modulate", Color.WHITE, 0.15)
+	bg_glow_tween.tween_property(edit_button, ^"self_modulate", Color.WHITE, 0.15)
 
 
 func _on_mouse_exited() -> void:
@@ -91,7 +98,12 @@ func _on_mouse_exited() -> void:
 	bg_glow_tween = create_tween().set_ease(Tween.EASE_OUT).set_parallel()
 	bg_glow_tween.tween_property(bg_glow, ^"self_modulate", Color.TRANSPARENT, 0.15)
 	bg_glow_tween.tween_property(delete_button, ^"self_modulate", Color.TRANSPARENT, 0.15)
+	bg_glow_tween.tween_property(edit_button, ^"self_modulate", Color.TRANSPARENT, 0.15)
 
 
 func _on_delete_button_pressed() -> void:
 	delete_request.emit(self)
+
+
+func _on_edit_button_pressed() -> void:
+	edit_request.emit(self)

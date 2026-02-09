@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://dhqemr5xv2lh3"]
+
+[ext_resource type="Script" uid="uid://d0k8rsypakwa2" path="res://components/edit_entry_panel.gd" id="1_en1xu"]
+[ext_resource type="Texture2D" uid="uid://dl6wl5c0wedvk" path="res://icons/refresh.svg" id="2_6t0b8"]
+
+[node name="EditEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "save_button")]
+custom_minimum_size = Vector2(450, 0)
+offset_right = 513.0
+offset_bottom = 532.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_en1xu")
+name_edit = NodePath("MarginContainer/VBoxContainer/NameEdit")
+user_edit = NodePath("MarginContainer/VBoxContainer/UserEdit")
+password_edit = NodePath("MarginContainer/VBoxContainer/PasswordEdit")
+save_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=88891866]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1340994886]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1152021043]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Edit Entry"
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=373557375]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1337433507]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Service Name"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer" unique_id=307341796]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="NameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1538114213]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "e.g. Netflix, GitHub"
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=216122218]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1131164304]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Email / User"
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1885323195]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="UserEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1021201145]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "user@email.com"
+
+[node name="Control6" type="Control" parent="MarginContainer/VBoxContainer" unique_id=204485412]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer" unique_id=228160490]
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+theme_override_font_sizes/font_size = 18
+text = "Password"
+
+[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1773346460]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="PasswordEdit" type="LineEdit" parent="MarginContainer/VBoxContainer" unique_id=1426342175]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "••••••••••••"
+secret = true
+
+[node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer/PasswordEdit" unique_id=936796363]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -23.0
+offset_right = -5.0
+offset_bottom = 23.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+theme_override_constants/icon_max_width = 20
+icon = ExtResource("2_6t0b8")
+icon_alignment = 1
+
+[node name="Control8" type="Control" parent="MarginContainer/VBoxContainer" unique_id=135899122]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=300928262]
+visible = false
+layout_mode = 2
+theme_type_variation = &"LabelError"
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control7" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1039677254]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=81133308]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1690795909]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2027095631]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 16
+text = "Save"
+
+[connection signal="focus_entered" from="MarginContainer/VBoxContainer/PasswordEdit" to="." method="_on_password_edit_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/PasswordEdit" to="." method="_on_password_edit_focus_exited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PasswordEdit/GenerateButton" to="." method="_on_generate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]

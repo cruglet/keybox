@@ -1,16 +1,16 @@
-class_name NewEntry
-extends AnimatedPanel
+class_name EditEntryPanel
+extends PanelContainer
 
+
+signal edit_confirmed(ref: VaultEntry)
 signal canceled
-signal created(name: String, email: String, password: String)
-
-@export var escape_cancel: bool = false
 
 @export var name_edit: LineEdit
 @export var user_edit: LineEdit
 @export var password_edit: LineEdit
-@export var error_label: Label
 @export var save_button: Button
+
+var entry_ref: VaultEntry
 
 
 func _ready() -> void:
@@ -19,21 +19,27 @@ func _ready() -> void:
 	Chroma.bind_color(save_button, "stylebox/pressed", "bg_color", 0.9)
 
 
-func clear_inputs() -> void:
-	name_edit.text = ""
-	user_edit.text = ""
-	password_edit.text = ""
-	error_label.hide()
+func assign(entry: VaultEntry) -> void:
+	entry_ref = entry
+	name_edit.text = entry_ref.entry_name
+	user_edit.text = entry_ref.entry_username
+	password_edit.text = entry_ref.entry_password
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == KEY_ESCAPE and escape_cancel and visible:
-			canceled.emit()
+func get_edited_name() -> String:
+	return name_edit.text
 
 
-func _on_generate_button_pressed() -> void:
-	password_edit.text = _generate_password(16)
+func get_edited_username() -> String:
+	return user_edit.text
+
+
+func get_edited_password() -> String:
+	return password_edit.text
+
+
+func confirm() -> void:
+	edit_confirmed.emit(entry_ref)
 
 
 func _generate_password(length: int = 16) -> String:
@@ -97,25 +103,16 @@ func _on_cancel_button_pressed() -> void:
 
 
 func _on_save_button_pressed() -> void:
-	var name_: String = name_edit.text.strip_edges()
-	var user: String = user_edit.text.strip_edges()
-	var password: String = password_edit.text.strip_edges()
-	
-	if name_ == "":
-		_show_error("Name cannot be empty")
-		return
-	
-	if user == "":
-		_show_error("Username/Email cannot be empty")
-		return
-	
-	if password == "":
-		_show_error("Password cannot be empty")
-		return
-	
-	created.emit(name_, user, password)
+	confirm()
 
 
-func _show_error(message: String) -> void:
-	error_label.show()
-	error_label.text = message
+func _on_password_edit_focus_entered() -> void:
+	password_edit.secret = false
+
+
+func _on_password_edit_focus_exited() -> void:
+	password_edit.secret = true
+
+
+func _on_generate_button_pressed() -> void:
+	password_edit.text = _generate_password()

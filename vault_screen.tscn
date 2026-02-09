@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cg82ihc40n24h" path="res://components/auth_panel.tscn" id="7_6xhj2"]
 [ext_resource type="PackedScene" uid="uid://dnmf8fdoa0ssm" path="res://components/new_entry_panel.tscn" id="8_xr618"]
 [ext_resource type="PackedScene" uid="uid://djac3y52eodm" path="res://components/new_vault_panel.tscn" id="9_f6coe"]
+[ext_resource type="PackedScene" uid="uid://dhqemr5xv2lh3" path="res://components/edit_entry_panel.tscn" id="10_jm6fk"]
+[ext_resource type="PackedScene" uid="uid://clgs37fgilp84" path="res://components/delete_confirmation.tscn" id="11_lm4gx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yhsy"]
 shader = ExtResource("6_l4fpi")
@@ -17,7 +19,7 @@ shader_parameter/blur_amount = 2.0
 shader_parameter/blur_quality = 3
 shader_parameter/dither_strength = 0.1
 
-[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur")]
+[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "edit_entry_panel", "delete_confirmation", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,6 +31,8 @@ blur_container = NodePath("BlurContainer")
 auth_panel = NodePath("BlurContainer/AuthPanelContainer/AuthPanel")
 new_entry_panel = NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel")
 new_vault_panel = NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")
+edit_entry_panel = NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel")
+delete_confirmation = NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation")
 flow_container = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer")
 copied_toast = NodePath("CopiedToast")
 vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox")
@@ -36,7 +40,7 @@ create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/Sc
 add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
 new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
-panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")]
+panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel"), NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation")]
 bg_blur = NodePath("BlurContainer/BGBlur")
 
 [node name="VaultContainer" type="Control" parent="." unique_id=1432826734]
@@ -286,6 +290,32 @@ mouse_filter = 2
 visible = false
 layout_mode = 2
 
+[node name="EditEntryPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=853411875]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EditEntryPanel" parent="BlurContainer/EditEntryPanelContainer" unique_id=732141105 instance=ExtResource("10_jm6fk")]
+visible = false
+layout_mode = 2
+
+[node name="DeleteConfirmationPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=774103078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DeleteConfirmation" parent="BlurContainer/DeleteConfirmationPanelContainer" unique_id=1257494744 instance=ExtResource("11_lm4gx")]
+visible = false
+layout_mode = 2
+
 [node name="NewVaultPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=855514996]
 layout_mode = 1
 anchors_preset = 15
@@ -295,7 +325,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="NewVaultPanel" parent="BlurContainer/NewVaultPanelContainer" unique_id=1257494744 instance=ExtResource("9_f6coe")]
+[node name="NewVaultPanel" parent="BlurContainer/NewVaultPanelContainer" unique_id=451550926 instance=ExtResource("9_f6coe")]
 visible = false
 layout_mode = 2
 
@@ -328,5 +358,9 @@ horizontal_alignment = 1
 [connection signal="new_vault_name_changed" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_new_vault_name_changed"]
 [connection signal="canceled" from="BlurContainer/NewEntryPanelContainer/NewEntryPanel" to="." method="_on_new_entry_panel_canceled"]
 [connection signal="created" from="BlurContainer/NewEntryPanelContainer/NewEntryPanel" to="." method="_on_new_entry_panel_created"]
+[connection signal="canceled" from="BlurContainer/EditEntryPanelContainer/EditEntryPanel" to="." method="_on_edit_entry_panel_canceled"]
+[connection signal="edit_confirmed" from="BlurContainer/EditEntryPanelContainer/EditEntryPanel" to="." method="_on_edit_entry_panel_edit_confirmed"]
+[connection signal="canceled" from="BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation" to="." method="_on_delete_confirmation_canceled"]
+[connection signal="delete_request" from="BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation" to="." method="_on_delete_confirmation_delete_request"]
 [connection signal="canceled" from="BlurContainer/NewVaultPanelContainer/NewVaultPanel" to="." method="_on_new_vault_panel_canceled"]
 [connection signal="created" from="BlurContainer/NewVaultPanelContainer/NewVaultPanel" to="." method="_on_new_vault_panel_created"]
