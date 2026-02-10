@@ -53,27 +53,18 @@ func _input(event: InputEvent) -> void:
 
 func _setup_window() -> void:
 	var window: Window = get_window()
-	if not window:
-		return
+	if not window: return
 	
 	var screen: int = window.get_current_screen()
 	var screen_scale: float = DisplayServer.screen_get_scale(screen)
-	if screen_scale <= 0.0:
-		screen_scale = 1.0
-	
-	var resolution: Vector2 = DisplayServer.screen_get_size(screen)
-	var min_size: Vector2 = Vector2(1280, 720)
-	if resolution.x >= 3840 or resolution.y >= 2160:
-		screen_scale *= 1.25
-	
-	if Metadata.has_value(&"scale"):
-		screen_scale = Metadata.get_value(&"scale")
 	
 	window.content_scale_factor = screen_scale
 	
-	var width: int = max(int(resolution.x / screen_scale), int(min_size.x))
-	var height: int = max(int(resolution.y / screen_scale), int(min_size.y))
-	window.size = Vector2(width, height)
+	var screen_rect = DisplayServer.screen_get_usable_rect(screen)
+	var window_size = window.get_size_with_decorations() # Includes title bar
+	var target_pos = screen_rect.position + (screen_rect.size - window_size) / 2
+	
+	window.position = target_pos
 
 
 func _setup_theme() -> void:

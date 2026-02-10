@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Keybox"
+config/version="1.0.1"
 run/main_scene="uid://cwek83s4036ic"
 run/print_header=false
 config/use_custom_user_dir=true
@@ -58,3 +59,4 @@ ui_scale_out={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
