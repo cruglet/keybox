@@ -52,6 +52,8 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"LineEditPrimary"
 placeholder_text = "e.g. Netflix, GitHub"
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=216122218]
 custom_minimum_size = Vector2(0, 16)
@@ -72,6 +74,8 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"LineEditPrimary"
 placeholder_text = "user@email.com"
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="Control6" type="Control" parent="MarginContainer/VBoxContainer" unique_id=204485412]
 custom_minimum_size = Vector2(0, 16)
@@ -92,6 +96,8 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"LineEditPrimary"
 placeholder_text = "••••••••••••"
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer/PasswordEdit" unique_id=936796363]
 layout_mode = 1

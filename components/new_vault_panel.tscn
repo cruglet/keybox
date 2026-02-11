@@ -49,6 +49,8 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"LineEditPrimary"
 placeholder_text = "e.g. Personal, Business, Socials ..."
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="Control3" type="Control" parent="MarginContainer/VBoxContainer" unique_id=491419170]
 custom_minimum_size = Vector2(0, 16)

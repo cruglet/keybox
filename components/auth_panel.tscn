@@ -93,6 +93,8 @@ theme_type_variation = &"LineEditMono"
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Vault Name"
 alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/NewVaultVBox" unique_id=1397390527]
 custom_minimum_size = Vector2(0, 20)
@@ -154,6 +156,8 @@ theme_type_variation = &"LineEditMono"
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Create Master Key"
 alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
 secret = true
 
 [node name="Control5" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=17340789]
@@ -166,6 +170,8 @@ theme_type_variation = &"LineEditMono"
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Verify Master Key"
 alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
 secret = true
 
 [node name="Control6" type="Control" parent="MarginContainer/VBoxContainer/NewKeyVBox" unique_id=872621399]
@@ -227,6 +233,8 @@ theme_type_variation = &"LineEditMono"
 theme_override_font_sizes/font_size = 17
 placeholder_text = "Master Key"
 alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
 secret = true
 
 [node name="Control5" type="Control" parent="MarginContainer/VBoxContainer/AuthKeyVBox" unique_id=2145657771]
