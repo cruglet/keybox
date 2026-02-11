@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 MAINTAINER_NAME="Cruglet"
 MAINTAINER_EMAIL="cruglet@gmail.com"
-
 PKGNAME="keybox-bin"
 PKGDESC="A minimal, encrypted, local password manager."
 ARCH="x86_64"
 LICENSE="MIT"
 DEPENDS=("vulkan-icd-loader")
-
 REPO_URL="https://github.com/cruglet/keybox"
 BIN_NAME="keybox"
-BIN_FILENAME="keybox-linux.x86_64"
+BIN_FILENAME="keybox-linux.x86_64.zip"
 ICON_URL="https://raw.githubusercontent.com/cruglet/keybox/main/meta/full-logo_256x.png"
-
 AUR_DIR="aur"
 PKGREL_FILE="$AUR_DIR/.pkgrel"
-
 FORCE_REL=""
 BUMP=false
 BUMPUP=false
 FORCE_PUSH=false
-
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --rel)
@@ -46,24 +40,20 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-
 if [[ ! -f project.godot ]]; then
   exit 1
 fi
-
 PROJECT_NAME=$(grep '^config/name=' project.godot | cut -d'"' -f2)
-PROJECT_VERSION=$(grep '^config/version=' project.godot | cut -d'"' -f2)
+# Strip any accidental leading 'v' from the version in project.godot
+PROJECT_VERSION=$(grep '^config/version=' project.godot | cut -d'"' -f2 | sed 's/^v//')
 PKGVER="$PROJECT_VERSION"
-
 mkdir -p "$AUR_DIR"
-
 if [[ -f "$PKGREL_FILE" ]]; then
   read -r LAST_VER LAST_REL < "$PKGREL_FILE"
 else
   LAST_VER=""
   LAST_REL=1
 fi
-
 if [[ -n "$FORCE_REL" ]]; then
   PKGREL="$FORCE_REL"
 elif [[ "$PKGVER" != "$LAST_VER" ]]; then
@@ -76,11 +66,8 @@ else
       PKGREL=$((LAST_REL+1))
   fi
 fi
-
 echo "$PKGVER $PKGREL" > "$PKGREL_FILE"
-
 RELEASE_URL="$REPO_URL/releases/download/v$PKGVER/$BIN_FILENAME"
-
 generate_pkgbuild() {
 cat > "$AUR_DIR/PKGBUILD" <<EOF
 pkgname=$PKGNAME
@@ -91,14 +78,15 @@ arch=('$ARCH')
 url="$REPO_URL"
 license=('$LICENSE')
 depends=(${DEPENDS[@]})
+makedepends=('unzip')
 source=(
   "$BIN_FILENAME::$RELEASE_URL"
   "keybox.png::$ICON_URL"
 )
 sha256sums=('SKIP' 'SKIP')
-
 package() {
-  install -Dm755 "\$srcdir/$BIN_FILENAME" "\$pkgdir/usr/bin/$BIN_NAME"
+  unzip -o "\$srcdir/$BIN_FILENAME" -d "\$srcdir"
+  install -Dm755 "\$srcdir/$BIN_NAME" "\$pkgdir/usr/bin/$BIN_NAME"
   install -Dm644 /dev/stdin "\$pkgdir/usr/share/applications/$BIN_NAME.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
@@ -113,23 +101,22 @@ DESKTOP
 }
 EOF
 }
-
 generate_pkgbuild
 (
   cd "$AUR_DIR"
   makepkg --printsrcinfo > .SRCINFO
 )
-
 if [[ "$BUMP" = true || "$BUMPUP" = true ]]; then
+  # Strip the leading 'v' from the GitHub tag so it matches PKGVER format
   LATEST=$(curl -s "https://api.github.com/repos/cruglet/keybox/releases/latest" \
-           | grep -Po '"tag_name": "\K.*?(?=")')
+           | grep -Po '"tag_name": "\K.*?(?=")' \
+           | sed 's/^v//')
   if [[ -n "$LATEST" && "$LATEST" != "$PKGVER" ]]; then
     PKGVER="$LATEST"
     PKGREL=1
     echo "$PKGVER $PKGREL" > "$PKGREL_FILE"
     RELEASE_URL="$REPO_URL/releases/download/v$PKGVER/$BIN_FILENAME"
     generate_pkgbuild
-
     (
       cd "$AUR_DIR"
       makepkg --printsrcinfo > .SRCINFO
@@ -147,6 +134,4 @@ if [[ "$BUMP" = true || "$BUMPUP" = true ]]; then
     )
   fi
 fi
-
 echo "pkgver=$PKGVER pkgrel=$PKGREL"
-
