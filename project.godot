@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Keybox"
 config/description="A local, encrypted, minimal password manager."
-config/version="1.1.0"
+config/version="1.2.0"
 run/main_scene="uid://cwek83s4036ic"
 run/print_header=false
 config/use_custom_user_dir=true
