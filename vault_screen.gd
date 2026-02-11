@@ -22,6 +22,10 @@ const VAULT_CHIP = preload("uid://ohekncr6mj6b")
 @export var panels: Array[Control]
 @export var bg_blur: ColorRect
 @export var zoom_tip: Label
+@export var export_dialog: FileDialog
+@export var import_dialog: FileDialog
+@export var import_confirmation: PanelContainer
+
 
 var panel_tween: Tween
 var toast_tween: Tween
@@ -61,7 +65,7 @@ func _setup_window() -> void:
 	window.content_scale_factor = screen_scale
 	
 	var screen_rect = DisplayServer.screen_get_usable_rect(screen)
-	var window_size = window.get_size_with_decorations() # Includes title bar
+	var window_size = window.get_size_with_decorations()
 	var target_pos = screen_rect.position + (screen_rect.size - window_size) / 2
 	
 	window.position = target_pos
@@ -185,8 +189,9 @@ func _load_entries() -> void:
 
 func _populate_vault_chips() -> void:
 	for chip: VaultChip in vault_chips:
-		chip.queue_free()
-	vault_chips.clear()
+		chip.free()
+	vault_chips = []
+	
 	
 	for i: int in VaultHandler.get_vault_count():
 		var vault_data: Dictionary = VaultHandler.VAULTS_DATA[i]
@@ -201,7 +206,6 @@ func _populate_vault_chips() -> void:
 		vault_selector_hbox.move_child(chip, vault_selector_hbox.get_child_count() - 2)
 		vault_chips.append(chip)
 		
-		# Bind selected chip to Chroma's accent color, unbind others
 		if chip.is_selected:
 			chip.use_chroma = true
 		else:
@@ -278,17 +282,13 @@ func _on_vault_chip_toggled(vault_index: int) -> void:
 		return
 	
 	if VaultHandler.select_vault(vault_index):
-		# First unbind all chips and update their selection state
 		for chip: VaultChip in vault_chips:
 			if chip.is_selected:
-				# Unbind the previously selected chip first
 				chip.use_chroma = false
 			chip.is_selected = chip.vault_index == vault_index
 		
-		# Apply the new accent color
 		_apply_selected_vault_color()
 		
-		# Now bind the newly selected chip
 		for chip: VaultChip in vault_chips:
 			if chip.is_selected:
 				chip.use_chroma = true
@@ -491,3 +491,49 @@ func _on_edit_vault_panel_delete_request() -> void:
 		_populate_vault_chips()
 	
 	hide_panel(edit_vault_panel)
+
+
+func _on_export_button_pressed() -> void:
+	export_dialog.show()
+
+
+func _on_export_dialog_file_selected(path: String) -> void:
+	var buf: PackedByteArray = FileAccess.get_file_as_bytes(VaultHandler.DATA_PATH)
+	
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	file.store_buffer(buf)
+
+
+func _on_import_button_pressed() -> void:
+	import_dialog.show()
+
+
+func _on_import_dialog_file_selected(path: String) -> void:
+	import_confirmation.assign(path)
+	show_panel(import_confirmation)
+
+
+func _on_import_confirmation_canceled() -> void:
+	hide_panel(import_confirmation)
+
+
+func _on_import_confirmation_merge_request() -> void:
+	VaultHandler._load_vaults_data() 
+	_apply_selected_vault_color()
+	_populate_vault_chips()
+	_load_entries()
+	hide_panel(import_confirmation)
+
+
+func _on_import_confirmation_replace_request(file_path: String, key: String) -> void:
+	var external_data: Dictionary = VaultHandler.unlock_vault(file_path, key)
+	
+	if external_data.is_empty():
+		return
+	
+	if VaultHandler.replace_vault(external_data):
+		_apply_selected_vault_color()
+		_populate_vault_chips()
+		_load_entries()
+	
+	hide_panel(import_confirmation)

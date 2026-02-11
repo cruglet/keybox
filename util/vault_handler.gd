@@ -1,7 +1,6 @@
 class_name VaultHandler
 extends Node
 
-
 const MASTER_SALT_SIZE: int = 16
 const MASTER_KEY_SIZE: int = 32
 
@@ -9,6 +8,7 @@ static var MASTER_KEY: String
 static var MASTER_DERIVED_KEY: PackedByteArray
 static var VAULTS_DATA: Array[Dictionary]
 static var SELECTED_VAULT_INDEX: int = 0
+const DATA_PATH: String = "user://vault.kbox"
 
 
 class VaultData:
@@ -55,6 +55,51 @@ static func create_master_vault(master_key: String) -> void:
 	SELECTED_VAULT_INDEX = 0
 	
 	_write_vault_file(master_salt, master_verifier)
+
+
+static func unlock_vault(file_path: String, key: String) -> Dictionary:
+	if not FileAccess.file_exists(file_path):
+		return {}
+	
+	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		return {}
+	
+	var master_salt: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+	var master_verifier: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+	
+	var derived_key: PackedByteArray = Encryption.derive_key(key, master_salt)
+	var test_verifier: PackedByteArray = Encryption.hash_key(derived_key)
+	
+	if test_verifier.size() != master_verifier.size():
+		file.close()
+		return {}
+	
+	for i: int in test_verifier.size():
+		if test_verifier[i] != master_verifier[i]:
+			file.close()
+			return {}
+	
+	var encrypted_container: PackedByteArray = file.get_buffer(file.get_length() - file.get_position())
+	file.close()
+	
+	if encrypted_container.is_empty():
+		return {
+			"vaults": [],
+			"selected_vault": 0
+		}
+	
+	var decrypted: PackedByteArray = Encryption.decrypt_data(encrypted_container, derived_key)
+	if decrypted.is_empty():
+		return {}
+	
+	var container: Dictionary = bytes_to_var_with_objects(decrypted)
+	
+	return {
+		"vaults": container.get("vaults", []),
+		"selected_vault": container.get("selected_vault", 0),
+		"derived_key": derived_key
+	}
 
 
 static func unlock_master_vault(master_key: String) -> bool:
@@ -251,11 +296,135 @@ static func move_entry_to_vault(p_entry_dict: Dictionary, p_old_vault_index: int
 	_write_entries_at(new_entries, p_new_vault_index)
 
 
+static func merge_vault(external_vault_data: Dictionary) -> bool:
+	if external_vault_data.is_empty():
+		return false
+	
+	var external_vaults: Array = external_vault_data.get("vaults", [])
+	if external_vaults.is_empty():
+		return false
+	
+	var external_derived_key: PackedByteArray = external_vault_data.get("derived_key", PackedByteArray())
+	if external_derived_key.is_empty():
+		return false
+	
+	var total_merged: int = 0
+	
+	for external_vault_dict: Dictionary in external_vaults:
+		var external_vault_name: String = external_vault_dict.get("name", "")
+		var external_vault_color: String = external_vault_dict.get("color", "#ffffff")
+		
+		var matching_vault_index: int = -1
+		for i: int in VAULTS_DATA.size():
+			if VAULTS_DATA[i].get("name", "") == external_vault_name:
+				matching_vault_index = i
+				break
+		
+		var external_encrypted: PackedByteArray = external_vault_dict.get("encrypted_data", PackedByteArray())
+		var external_entries: Array = []
+		
+		if not external_encrypted.is_empty():
+			var external_decrypted: PackedByteArray = Encryption.decrypt_data(external_encrypted, external_derived_key)
+			if not external_decrypted.is_empty():
+				external_entries = bytes_to_var_with_objects(external_decrypted)
+				external_entries = external_entries.filter(func(e: Variant) -> bool:
+					return e is Dictionary and e.has("name") and e.has("user") and e.has("password")
+				)
+		
+		if matching_vault_index != -1:
+			var current_entries: Array = _fetch_entries_at(matching_vault_index)
+			
+			var existing_signatures: Dictionary = {}
+			for entry: Dictionary in current_entries:
+				var signature: String = "%s|%s|%s" % [entry.get("name", ""), entry.get("user", ""), entry.get("password", "")]
+				existing_signatures[signature] = true
+			
+			var merged_count: int = 0
+			for entry: Dictionary in external_entries:
+				var signature: String = "%s|%s|%s" % [entry.get("name", ""), entry.get("user", ""), entry.get("password", "")]
+				if not existing_signatures.has(signature):
+					current_entries.append(entry)
+					merged_count += 1
+			
+			if merged_count > 0:
+				_write_entries_at(current_entries, matching_vault_index)
+				total_merged += merged_count
+		else:
+			var data: PackedByteArray = var_to_bytes_with_objects(external_entries)
+			var encrypted: PackedByteArray = Encryption.encrypt_data(data, MASTER_DERIVED_KEY)
+			
+			var new_vault: VaultData = VaultData.new(external_vault_name, external_vault_color, external_entries.size(), encrypted)
+			VAULTS_DATA.append(new_vault.to_dict())
+			total_merged += external_entries.size()
+	
+	if total_merged > 0:
+		var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
+		var master_salt: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+		var master_verifier: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+		file.close()
+		_write_vault_file(master_salt, master_verifier)
+	
+	return total_merged > 0
+
+
+static func replace_vault(external_vault_data: Dictionary) -> bool:
+	if external_vault_data.is_empty():
+		return false
+	
+	var external_vaults: Array = external_vault_data.get("vaults", [])
+	if external_vaults.is_empty():
+		return false
+	
+	var external_derived_key: PackedByteArray = external_vault_data.get("derived_key", PackedByteArray())
+	if external_derived_key.is_empty():
+		return false
+	
+	VAULTS_DATA.clear()
+	
+	for external_vault_dict: Dictionary in external_vaults:
+		var vault_name: String = external_vault_dict.get("name", "")
+		var vault_color: String = external_vault_dict.get("color", "#ffffff")
+		
+		var external_encrypted: PackedByteArray = external_vault_dict.get("encrypted_data", PackedByteArray())
+		var entries: Array = []
+		
+		if not external_encrypted.is_empty():
+			var external_decrypted: PackedByteArray = Encryption.decrypt_data(external_encrypted, external_derived_key)
+			if not external_decrypted.is_empty():
+				entries = bytes_to_var_with_objects(external_decrypted)
+				entries = entries.filter(func(e: Variant) -> bool:
+					return e is Dictionary and e.has("name") and e.has("user") and e.has("password")
+				)
+		
+		var data: PackedByteArray = var_to_bytes_with_objects(entries)
+		var encrypted: PackedByteArray = Encryption.encrypt_data(data, MASTER_DERIVED_KEY)
+		
+		var new_vault: VaultData = VaultData.new(vault_name, vault_color, entries.size(), encrypted)
+		VAULTS_DATA.append(new_vault.to_dict())
+	
+	SELECTED_VAULT_INDEX = external_vault_data.get("selected_vault", 0)
+	if SELECTED_VAULT_INDEX >= VAULTS_DATA.size():
+		SELECTED_VAULT_INDEX = 0
+	
+	var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
+	var master_salt: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+	var master_verifier: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+	file.close()
+	
+	_write_vault_file(master_salt, master_verifier)
+	
+	return true
+
+
 static func _fetch_entries_at(index: int) -> Array:
-	if index < 0 or index >= VAULTS_DATA.size(): return []
+	if index < 0 or index >= VAULTS_DATA.size():
+		return []
+	
 	var vault: VaultData = VaultData.from_dict(VAULTS_DATA[index])
 	var decrypted: PackedByteArray = Encryption.decrypt_data(vault.encrypted_data, MASTER_DERIVED_KEY)
-	if decrypted.is_empty(): return []
+	if decrypted.is_empty():
+		return []
+	
 	return bytes_to_var_with_objects(decrypted)
 
 
@@ -263,10 +432,12 @@ static func _write_entries_at(entries: Array, index: int) -> void:
 	var data: PackedByteArray = var_to_bytes_with_objects(entries)
 	VAULTS_DATA[index]["encrypted_data"] = Encryption.encrypt_data(data, MASTER_DERIVED_KEY)
 	VAULTS_DATA[index]["key_count"] = entries.size()
+	
 	var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
 	var s: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
 	var v: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
 	file.close()
+	
 	_write_vault_file(s, v)
 
 

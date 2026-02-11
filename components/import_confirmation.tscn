@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://c1cgc54guyb3t"]
+
+[ext_resource type="Script" uid="uid://c2f43jf04hda8" path="res://components/import_confirmation.gd" id="1_rw3xf"]
+
+[node name="ImportConfirmation" type="PanelContainer" unique_id=1257494744 node_paths=PackedStringArray("unlock_v_box", "import_v_box", "line_edit", "unlock_button", "merge_button", "error_label", "vaults_label")]
+custom_minimum_size = Vector2(450, 0)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"PrimaryPanel"
+script = ExtResource("1_rw3xf")
+unlock_v_box = NodePath("MarginContainer/UnlockVBox")
+import_v_box = NodePath("MarginContainer/ImportVBox")
+line_edit = NodePath("MarginContainer/UnlockVBox/LineEdit")
+unlock_button = NodePath("MarginContainer/UnlockVBox/HBoxContainer/UnlockButton")
+merge_button = NodePath("MarginContainer/ImportVBox/HBoxContainer/MergeButton")
+error_label = NodePath("MarginContainer/UnlockVBox/ErrorLabel")
+vaults_label = NodePath("MarginContainer/ImportVBox/VaultsLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1184291525]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="UnlockVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1302667884]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/UnlockVBox" unique_id=2094262180]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Unlock File"
+
+[node name="Control" type="Control" parent="MarginContainer/UnlockVBox" unique_id=2119868522]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/UnlockVBox" unique_id=1029954380]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+text = "Please enter this vault's master key to unlock it."
+autowrap_mode = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/UnlockVBox" unique_id=609278881]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/UnlockVBox" unique_id=836182035]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_type_variation = &"LineEditPrimary"
+placeholder_text = "Enter Key..."
+context_menu_enabled = false
+emoji_menu_enabled = false
+secret = true
+
+[node name="Control3" type="Control" parent="MarginContainer/UnlockVBox" unique_id=1691675333]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="MarginContainer/UnlockVBox" unique_id=1605213198]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_type_variation = &"LabelError"
+theme_override_font_sizes/font_size = 14
+text = "Could not verify"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Control4" type="Control" parent="MarginContainer/UnlockVBox" unique_id=1076434526]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UnlockVBox" unique_id=1582348323]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="MarginContainer/UnlockVBox/HBoxContainer" unique_id=627091915]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+text = "Cancel"
+
+[node name="UnlockButton" type="Button" parent="MarginContainer/UnlockVBox/HBoxContainer" unique_id=618181216]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+text = "Unlock"
+
+[node name="ImportVBox" type="VBoxContainer" parent="MarginContainer" unique_id=1208300331]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/ImportVBox" unique_id=726489985]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Import Vault(s)"
+
+[node name="Control" type="Control" parent="MarginContainer/ImportVBox" unique_id=1619655192]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/ImportVBox" unique_id=510380022]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_type_variation = &"LabelThin"
+text = "You are about to import X vaults, do you want to merge with your current vault?"
+autowrap_mode = 2
+
+[node name="Control3" type="Control" parent="MarginContainer/ImportVBox" unique_id=630517540]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VaultsLabel" type="Label" parent="MarginContainer/ImportVBox" unique_id=1611869950]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+theme_type_variation = &"LabelSecondary"
+theme_override_font_sizes/font_size = 12
+text = "Vault1, Vault2, Vault3"
+autowrap_mode = 2
+text_overrun_behavior = 3
+
+[node name="Control4" type="Control" parent="MarginContainer/ImportVBox" unique_id=588096374]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ImportVBox" unique_id=59794381]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="MarginContainer/ImportVBox/HBoxContainer" unique_id=331663233]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SecondaryButton"
+theme_override_font_sizes/font_size = 16
+text = "Cancel"
+
+[node name="ReplaceButton" type="Button" parent="MarginContainer/ImportVBox/HBoxContainer" unique_id=71392949]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"DangerButton"
+theme_override_font_sizes/font_size = 16
+text = "Replace"
+
+[node name="MergeButton" type="Button" parent="MarginContainer/ImportVBox/HBoxContainer" unique_id=2055654847]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_type_variation = &"AccentButton"
+theme_override_font_sizes/font_size = 16
+text = "Merge"
+
+[connection signal="pressed" from="MarginContainer/UnlockVBox/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UnlockVBox/HBoxContainer/UnlockButton" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ImportVBox/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ImportVBox/HBoxContainer/ReplaceButton" to="." method="_on_replace_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ImportVBox/HBoxContainer/MergeButton" to="." method="_on_merge_button_pressed"]

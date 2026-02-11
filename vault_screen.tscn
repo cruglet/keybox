@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://c5hdedqxcdo7f" path="res://icons/logo-hole.svg" id="3_8yhsy"]
 [ext_resource type="Texture2D" uid="uid://d1odhvtjhqdlm" path="res://icons/plus.svg" id="4_jm6fk"]
 [ext_resource type="Texture2D" uid="uid://dt4ubeg3ikmfd" path="res://icons/settings.svg" id="4_l4fpi"]
+[ext_resource type="Texture2D" uid="uid://bka3jq3urf0eo" path="res://icons/import.svg" id="4_soigx"]
+[ext_resource type="Texture2D" uid="uid://baaua8j0735oq" path="res://icons/export.svg" id="4_xr618"]
 [ext_resource type="PackedScene" uid="uid://ohekncr6mj6b" path="res://components/vault_chip.tscn" id="5_24rf1"]
 [ext_resource type="PackedScene" uid="uid://dlvpgaeknnn70" path="res://components/vault_entry.tscn" id="6_8yhsy"]
 [ext_resource type="Shader" uid="uid://c116cf6fjsftq" path="res://shaders/blur.gdshader" id="6_l4fpi"]
@@ -14,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dhqemr5xv2lh3" path="res://components/edit_entry_panel.tscn" id="10_jm6fk"]
 [ext_resource type="PackedScene" uid="uid://clgs37fgilp84" path="res://components/delete_confirmation.tscn" id="11_lm4gx"]
 [ext_resource type="PackedScene" uid="uid://pff1mtanhrck" path="res://components/edit_vault_panel.tscn" id="14_6xhj2"]
+[ext_resource type="PackedScene" uid="uid://c1cgc54guyb3t" path="res://components/import_confirmation.tscn" id="17_00a5v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yhsy"]
 shader = ExtResource("6_l4fpi")
@@ -21,7 +24,7 @@ shader_parameter/blur_amount = 2.0
 shader_parameter/blur_quality = 3
 shader_parameter/dither_strength = 0.1
 
-[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "edit_entry_panel", "edit_vault_panel", "delete_confirmation", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur", "zoom_tip")]
+[node name="Vault" type="Control" unique_id=440608926 node_paths=PackedStringArray("blur_container", "auth_panel", "new_entry_panel", "new_vault_panel", "edit_entry_panel", "edit_vault_panel", "delete_confirmation", "flow_container", "copied_toast", "vault_selector_hbox", "create_vault_button", "add_secret_button", "new_profile_chip", "logo_bg", "panels", "bg_blur", "zoom_tip", "export_dialog", "import_dialog", "import_confirmation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,9 +46,12 @@ create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/Ma
 add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
 new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
 logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
-panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel"), NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation"), NodePath("BlurContainer/EditVaultPanelContainer/EditVaultPanel")]
+panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel"), NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation"), NodePath("BlurContainer/EditVaultPanelContainer/EditVaultPanel"), NodePath("BlurContainer/ImportPanelContainer/ImportConfirmation")]
 bg_blur = NodePath("BlurContainer/BGBlur")
 zoom_tip = NodePath("VaultContainer/ZoomTip")
+export_dialog = NodePath("ExportDialog")
+import_dialog = NodePath("ImportDialog")
+import_confirmation = NodePath("BlurContainer/ImportPanelContainer/ImportConfirmation")
 
 [node name="VaultContainer" type="Control" parent="." unique_id=1432826734]
 layout_mode = 1
@@ -128,6 +134,26 @@ size_flags_horizontal = 3
 [node name="RHBox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=885894217]
 layout_mode = 2
 theme_override_constants/separation = 8
+
+[node name="ImportButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=1198984935]
+layout_mode = 2
+tooltip_text = "Import Vault"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 18
+theme_override_font_sizes/font_size = 15
+icon = ExtResource("4_soigx")
+
+[node name="ExportButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=1362541599]
+layout_mode = 2
+tooltip_text = "Export Vault"
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 18
+theme_override_font_sizes/font_size = 15
+icon = ExtResource("4_xr618")
 
 [node name="EditVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=957713726]
 layout_mode = 2
@@ -383,6 +409,19 @@ mouse_filter = 2
 visible = false
 layout_mode = 2
 
+[node name="ImportPanelContainer" type="CenterContainer" parent="BlurContainer" unique_id=641310082]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ImportConfirmation" parent="BlurContainer/ImportPanelContainer" unique_id=1967780434 instance=ExtResource("17_00a5v")]
+visible = false
+layout_mode = 2
+
 [node name="CopiedToast" type="PanelContainer" parent="." unique_id=893468467]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -405,6 +444,24 @@ theme_override_font_sizes/font_size = 15
 text = "Copied to Clipboard"
 horizontal_alignment = 1
 
+[node name="ExportDialog" type="FileDialog" parent="." unique_id=2136257602]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+access = 2
+filters = PackedStringArray("*.kbox;Vault File")
+use_native_dialog = true
+
+[node name="ImportDialog" type="FileDialog" parent="." unique_id=233900503]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.kbox;Vault File")
+use_native_dialog = true
+
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/ExportButton" to="." method="_on_export_button_pressed"]
 [connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/EditVaultButton" to="." method="_on_edit_vault_button_pressed"]
 [connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton" to="." method="_on_add_secret_button_pressed"]
 [connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
@@ -422,3 +479,7 @@ horizontal_alignment = 1
 [connection signal="canceled" from="BlurContainer/EditVaultPanelContainer/EditVaultPanel" to="." method="_on_edit_vault_panel_canceled"]
 [connection signal="delete_request" from="BlurContainer/EditVaultPanelContainer/EditVaultPanel" to="." method="_on_edit_vault_panel_delete_request"]
 [connection signal="save_request" from="BlurContainer/EditVaultPanelContainer/EditVaultPanel" to="." method="_on_edit_vault_panel_save_request"]
+[connection signal="canceled" from="BlurContainer/ImportPanelContainer/ImportConfirmation" to="." method="_on_import_confirmation_canceled"]
+[connection signal="merge_request" from="BlurContainer/ImportPanelContainer/ImportConfirmation" to="." method="_on_import_confirmation_merge_request"]
+[connection signal="file_selected" from="ExportDialog" to="." method="_on_export_dialog_file_selected"]
+[connection signal="file_selected" from="ImportDialog" to="." method="_on_import_dialog_file_selected"]
