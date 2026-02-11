@@ -3,4 +3,5 @@
 build/
 /android/
 
+aur/
 .DS_Store
