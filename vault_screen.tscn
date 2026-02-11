@@ -36,13 +36,13 @@ new_vault_panel = NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel")
 edit_entry_panel = NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel")
 edit_vault_panel = NodePath("BlurContainer/EditVaultPanelContainer/EditVaultPanel")
 delete_confirmation = NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation")
-flow_container = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer")
+flow_container = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer")
 copied_toast = NodePath("CopiedToast")
-vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox")
-create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton")
-add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
-new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
-logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
+vault_selector_hbox = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox")
+create_vault_button = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton")
+add_secret_button = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton")
+new_profile_chip = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/NewProfileChip")
+logo_bg = NodePath("VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG")
 panels = [NodePath("BlurContainer/AuthPanelContainer/AuthPanel"), NodePath("BlurContainer/NewEntryPanelContainer/NewEntryPanel"), NodePath("BlurContainer/EditEntryPanelContainer/EditEntryPanel"), NodePath("BlurContainer/NewVaultPanelContainer/NewVaultPanel"), NodePath("BlurContainer/DeleteConfirmationPanelContainer/DeleteConfirmation"), NodePath("BlurContainer/EditVaultPanelContainer/EditVaultPanel")]
 bg_blur = NodePath("BlurContainer/BGBlur")
 zoom_tip = NodePath("VaultContainer/ZoomTip")
@@ -70,10 +70,7 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VaultContainer/PanelContainer/MarginContainer" unique_id=1286845890]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer" unique_id=1388079694]
+[node name="MarginContainer" type="MarginContainer" parent="VaultContainer/PanelContainer/MarginContainer" unique_id=1388079694]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -82,24 +79,24 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer" unique_id=1307521039]
+[node name="VBoxContainer" type="VBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer" unique_id=1307521039]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=357846364]
+[node name="HBoxContainer" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=357846364]
 layout_mode = 2
 
-[node name="LHBox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=284143612]
+[node name="LHBox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=284143612]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="LogoBG" type="TextureRect" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=619076213]
+[node name="LogoBG" type="TextureRect" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=619076213]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 texture = ExtResource("2_f6coe")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG" unique_id=171126637]
+[node name="TextureRect" type="TextureRect" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox/LogoBG" unique_id=171126637]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -115,24 +112,24 @@ grow_vertical = 2
 texture = ExtResource("3_8yhsy")
 expand_mode = 1
 
-[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=867113263]
+[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=867113263]
 custom_minimum_size = Vector2(14, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=2114622795]
+[node name="Label" type="Label" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/LHBox" unique_id=2114622795]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Keybox"
 
-[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1669982435]
+[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1669982435]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RHBox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=885894217]
+[node name="RHBox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=885894217]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="EditVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=957713726]
+[node name="EditVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=957713726]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"SecondaryButton"
@@ -142,7 +139,7 @@ theme_override_font_sizes/font_size = 15
 text = "Edit Vault"
 icon = ExtResource("4_l4fpi")
 
-[node name="AddSecretButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=1131095887]
+[node name="AddSecretButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox" unique_id=1131095887]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentButton"
@@ -151,28 +148,28 @@ theme_override_font_sizes/font_size = 15
 text = "Add Entry"
 icon = ExtResource("4_jm6fk")
 
-[node name="HSeparator" type="HSeparator" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=202896877]
+[node name="HSeparator" type="HSeparator" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=202896877]
 layout_mode = 2
 theme_override_constants/separation = 36
 
-[node name="Control3" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=475348261]
+[node name="Control3" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=475348261]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1073311412]
+[node name="ScrollContainer" type="ScrollContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=1073311412]
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
-[node name="VaultSelectorHbox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=374776243]
+[node name="VaultSelectorHbox" type="HBoxContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=374776243]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="NewProfileChip" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=220244992 instance=ExtResource("5_24rf1")]
+[node name="NewProfileChip" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=220244992 instance=ExtResource("5_24rf1")]
 layout_mode = 2
 is_preview = true
 
-[node name="CreateVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=2091243583]
+[node name="CreateVaultButton" type="Button" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox" unique_id=2091243583]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"AccentHollowButton"
@@ -180,83 +177,90 @@ theme_override_constants/icon_max_width = 16
 text = "New Vault"
 icon = ExtResource("4_jm6fk")
 
-[node name="Control2" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=225529159]
+[node name="Control2" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=225529159]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="SearchEdit" type="LineEdit" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=323548366]
+[node name="SearchEdit" type="LineEdit" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=323548366]
 layout_mode = 2
 theme_type_variation = &"LineEditSearch"
 placeholder_text = "Search your vault..."
 context_menu_enabled = false
 emoji_menu_enabled = false
 
-[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1547291198]
+[node name="Control" type="Control" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=1547291198]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1600529074]
+[node name="ScrollContainer2" type="ScrollContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=1286845890]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/scrollbar_h_separation = 10
+vertical_scroll_mode = 3
+
+[node name="FlowContainer" type="FlowContainer" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2" unique_id=1600529074]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 
-[node name="VaultEntry" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1796737077 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1796737077 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry2" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1600595704 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry2" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1600595704 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry3" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1475549209 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry3" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1475549209 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry4" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=107072321 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry4" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=107072321 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry5" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1593471769 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry5" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1593471769 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry6" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=246312931 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry6" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=246312931 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry7" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1044842716 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry7" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1044842716 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry8" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=693238952 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry8" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=693238952 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry9" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=747573031 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry9" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=747573031 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry10" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1233810615 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry10" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1233810615 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry11" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=1516556796 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry11" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=1516556796 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
 
-[node name="VaultEntry12" parent="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer" unique_id=2141522083 instance=ExtResource("6_8yhsy")]
+[node name="VaultEntry12" parent="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer2/FlowContainer" unique_id=2141522083 instance=ExtResource("6_8yhsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 obfuscated = true
@@ -401,10 +405,10 @@ theme_override_font_sizes/font_size = 15
 text = "Copied to Clipboard"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/EditVaultButton" to="." method="_on_edit_vault_button_pressed"]
-[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton" to="." method="_on_add_secret_button_pressed"]
-[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
-[connection signal="text_changed" from="VaultContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/EditVaultButton" to="." method="_on_edit_vault_button_pressed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/RHBox/AddSecretButton" to="." method="_on_add_secret_button_pressed"]
+[connection signal="pressed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VaultSelectorHbox/CreateVaultButton" to="." method="_on_create_vault_button_pressed"]
+[connection signal="text_changed" from="VaultContainer/PanelContainer/MarginContainer/MarginContainer/VBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
 [connection signal="access_granted" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_access_granted"]
 [connection signal="new_vault_name_changed" from="BlurContainer/AuthPanelContainer/AuthPanel" to="." method="_on_auth_panel_new_vault_name_changed"]
 [connection signal="canceled" from="BlurContainer/NewEntryPanelContainer/NewEntryPanel" to="." method="_on_new_entry_panel_canceled"]
