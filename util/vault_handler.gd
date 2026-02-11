@@ -158,6 +158,15 @@ static func get_selected_vault_key_count() -> int:
 	return VAULTS_DATA[SELECTED_VAULT_INDEX].get("key_count", 0)
 
 
+static func get_vault_color(p_vault_name: String) -> Color:
+	for vault_dict: Dictionary in VAULTS_DATA:
+		if vault_dict.get("name", "") == p_vault_name:
+			var color_hex: String = vault_dict.get("color", "#ffffff")
+			return Color.from_string(color_hex, Color.WHITE)
+	
+	return Color.WHITE
+
+
 static func fetch_entries() -> Array:
 	if SELECTED_VAULT_INDEX < 0 or SELECTED_VAULT_INDEX >= VAULTS_DATA.size():
 		return []
@@ -211,6 +220,54 @@ static func delete_selected_vault() -> bool:
 	
 	_write_vault_file(master_salt, master_verifier)
 	return true
+
+
+static func get_vault_key_count(vault_index: int) -> int:
+	if vault_index < 0 or vault_index >= VAULTS_DATA.size():
+		return 0
+	return VAULTS_DATA[vault_index].get("key_count", 0)
+
+
+static func move_entry_to_vault(p_entry_dict: Dictionary, p_old_vault_index: int, p_new_vault_index: int) -> void:
+	if p_old_vault_index != p_new_vault_index:
+		var old_entries: Array = _fetch_entries_at(p_old_vault_index)
+		for i: int in range(old_entries.size() - 1, -1, -1):
+			if old_entries[i]["name"] == p_entry_dict["name"]:
+				old_entries.remove_at(i)
+				break
+		_write_entries_at(old_entries, p_old_vault_index)
+
+	var new_entries: Array = _fetch_entries_at(p_new_vault_index)
+	var found: bool = false
+	for i: int in new_entries.size():
+		if new_entries[i]["name"] == p_entry_dict["name"]:
+			new_entries[i] = p_entry_dict
+			found = true
+			break
+	
+	if not found:
+		new_entries.append(p_entry_dict)
+		
+	_write_entries_at(new_entries, p_new_vault_index)
+
+
+static func _fetch_entries_at(index: int) -> Array:
+	if index < 0 or index >= VAULTS_DATA.size(): return []
+	var vault: VaultData = VaultData.from_dict(VAULTS_DATA[index])
+	var decrypted: PackedByteArray = Encryption.decrypt_data(vault.encrypted_data, MASTER_DERIVED_KEY)
+	if decrypted.is_empty(): return []
+	return bytes_to_var_with_objects(decrypted)
+
+
+static func _write_entries_at(entries: Array, index: int) -> void:
+	var data: PackedByteArray = var_to_bytes_with_objects(entries)
+	VAULTS_DATA[index]["encrypted_data"] = Encryption.encrypt_data(data, MASTER_DERIVED_KEY)
+	VAULTS_DATA[index]["key_count"] = entries.size()
+	var file: FileAccess = FileAccess.open("user://vault.kbox", FileAccess.READ)
+	var s: PackedByteArray = file.get_buffer(MASTER_SALT_SIZE)
+	var v: PackedByteArray = file.get_buffer(MASTER_KEY_SIZE)
+	file.close()
+	_write_vault_file(s, v)
 
 
 static func _load_vaults_data() -> void:

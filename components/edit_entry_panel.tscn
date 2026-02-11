@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d0k8rsypakwa2" path="res://components/edit_entry_panel.gd" id="1_en1xu"]
 [ext_resource type="Texture2D" uid="uid://dl6wl5c0wedvk" path="res://icons/refresh.svg" id="2_6t0b8"]
 
-[node name="EditEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "save_button")]
+[node name="EditEntryPanel" type="PanelContainer" unique_id=1796737077 node_paths=PackedStringArray("name_edit", "user_edit", "password_edit", "save_button", "option_button")]
 custom_minimum_size = Vector2(450, 0)
 offset_right = 513.0
 offset_bottom = 532.0
@@ -14,6 +14,7 @@ name_edit = NodePath("MarginContainer/VBoxContainer/NameEdit")
 user_edit = NodePath("MarginContainer/VBoxContainer/UserEdit")
 password_edit = NodePath("MarginContainer/VBoxContainer/PasswordEdit")
 save_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
+option_button = NodePath("MarginContainer/VBoxContainer/Label/OptionButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=88891866]
 layout_mode = 2
@@ -30,6 +31,28 @@ theme_override_constants/separation = 0
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Edit Entry"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/Label" unique_id=477590591]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.564
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -0.083999634
+offset_top = -16.5
+offset_bottom = 20.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Vault"
+popup/item_0/id = 0
+popup/item_1/text = "Vault 2"
+popup/item_1/id = 1
+popup/item_2/text = "Vault 3"
+popup/item_2/id = 2
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=373557375]
 custom_minimum_size = Vector2(0, 36)
@@ -98,6 +121,25 @@ context_menu_enabled = false
 emoji_menu_enabled = false
 secret = true
 
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/PasswordEdit" unique_id=1675760030]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -23.0
+offset_right = -5.0
+offset_bottom = 23.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"IconButton"
+theme_override_constants/icon_max_width = 20
+icon = ExtResource("2_6t0b8")
+icon_alignment = 1
+
 [node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer/PasswordEdit" unique_id=936796363]
 layout_mode = 1
 anchors_preset = 6
@@ -152,8 +194,10 @@ theme_type_variation = &"AccentButton"
 theme_override_font_sizes/font_size = 16
 text = "Save"
 
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Label/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/PasswordEdit" to="." method="_on_password_edit_focus_entered"]
 [connection signal="focus_exited" from="MarginContainer/VBoxContainer/PasswordEdit" to="." method="_on_password_edit_focus_exited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PasswordEdit/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PasswordEdit/GenerateButton" to="." method="_on_generate_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]

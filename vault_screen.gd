@@ -93,6 +93,8 @@ func _setup_signals() -> void:
 		edit_entry_panel.edit_confirmed.connect(_on_edit_entry_panel_edit_confirmed)
 	if not edit_entry_panel.canceled.is_connected(_on_edit_entry_panel_canceled):
 		edit_entry_panel.canceled.connect(_on_edit_entry_panel_canceled)
+	if not edit_entry_panel.entry_moved_to_vault.is_connected(_on_entry_moved_to_vault):
+		edit_entry_panel.entry_moved_to_vault.connect(_on_entry_moved_to_vault)
 
 
 func _initialize_vault() -> void:
@@ -338,40 +340,39 @@ func _on_edit_entry_panel_edit_confirmed(ref: VaultEntry) -> void:
 	var updated_user: String = edit_entry_panel.get_edited_username()
 	var updated_password: String = edit_entry_panel.get_edited_password()
 	
-	print("Original: ", ref.entry_name, " | ", ref.entry_username)
-	print("Updated: ", updated_name, " | ", updated_user)
-	
-	var found: bool = false
-	for i: int in range(entries.size()):
-		var entry: Dictionary = entries[i]
-		var matches: bool = (
-			entry["name"] == ref.entry_name and
-			entry["user"] == ref.entry_username and
-			entry["password"] == ref.entry_password
-		)
-		if matches:
-			entries[i] = {
-				"name": updated_name,
-				"user": updated_user,
-				"password": updated_password
-			}
-			found = true
-			print("Found and updated entry at index: ", i)
-			break
-	
-	if not found:
-		print("ERROR: Entry not found in vault!")
-	
 	VaultHandler.write_entries(entries)
-	print("Entries written. Total count: ", entries.size())
 	
 	ref.entry_name = updated_name
 	ref.entry_username = updated_user
 	ref.entry_password = updated_password
 	ref.update_display()
 	
-	var verify_entries: Array = VaultHandler.fetch_entries()
-	print("Verification - Entry 0: ", verify_entries[0] if verify_entries.size() > 0 else "NONE")
+	hide_panel(edit_entry_panel)
+
+
+func _on_entry_moved_to_vault(ref: VaultEntry, new_vault_index: int) -> void:
+	ref.queue_free()
+	
+	var entries: Array = VaultHandler.fetch_entries()
+	var filtered_entries: Array = []
+	for e: Variant in entries:
+		var entry_dict: Dictionary = e as Dictionary
+		var matches: bool = (
+			entry_dict["name"] == ref.entry_name and
+			entry_dict["user"] == ref.entry_username and
+			entry_dict["password"] == ref.entry_password
+		)
+		if not matches:
+			filtered_entries.append(e)
+	
+	VaultHandler.write_entries(filtered_entries)
+	
+	_update_selected_chip_count()
+	
+	for chip: VaultChip in vault_chips:
+		if chip.vault_index == new_vault_index:
+			chip.key_count = VaultHandler.get_vault_key_count(new_vault_index)
+			break
 	
 	hide_panel(edit_entry_panel)
 
